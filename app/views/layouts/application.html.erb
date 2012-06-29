@@ -24,6 +24,7 @@
   
   <div id="top">
   <a href="/"><h1 id="logotype">CONSTRVCT</h1></a>
+  <% if current_user%>
     <div class="profile-mini">
       <%= link_to edit_user_registration_path(current_user)  do %>
         <%= image_tag current_user.avatar.url(:mini) %>
@@ -31,6 +32,7 @@
       <% end %>
     </div>
   </div>
+  <% end %>
  
 <div id="main-container">    
   <nav id="main-nav">
