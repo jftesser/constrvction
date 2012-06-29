@@ -1,18 +1,13 @@
-<% if current_user %>  
-  <h2>My Constrvcts</h2>
-  
-<% else %>
-  <h2>Constrvcted by <%= @user.username %> </h2>
-<% end %>  
 
-<% if current_admin %>
-<p>
-  <%= @user.username %>
-  <%= @user.email %>
-</p>
-<% end %>
+  <div class="grid middle">
+    <% if current_user %>  
+      <h2>My Constrvcts</h2>
 
-  <div class="grid">
+    <% else %>
+      <h2>Constrvcted by <%= @user.username %> </h2>
+    <% end %>
+    
+    
   <% @user.designs.each do |design| %>
       <div class='grid-design-group'>
         <div class='design-unit'>
@@ -38,3 +33,8 @@
   <% end %>
   </div>
   
+  <% if current_admin %>
+  <p>
+    <%= @user.email %>
+  </p>
+  <% end %>

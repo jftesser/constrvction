@@ -34,12 +34,11 @@
   </div>
   <% end %>
   </div>
- 
-<div id="main-container" >    
-  <nav id="main-nav">
-    <%= link_to 'Constrvct Your Look', new_design_path %>
-    <div id="my-closet"></div>
-    
+  
+  <nav id="main-nav" >
+    <div class="middle" style="width:490px;">
+    <%= link_to 'Constrvct A Look', new_design_path %>
+
     <% if current_user %>
       <%= link_to 'My Closet', current_user %>
     <% end %>
@@ -52,14 +51,20 @@
         <%= link_to 'Log Out', destroy_user_session_path, :method=>:delete %>  
       <% end %>
     </nav>
-  
+    </div>
   </nav>
+  
+ 
+<div id="main-container" >    
   <!--
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
   -->
 
 <%= yield %>
+
+    <div id="my-closet"></div>
+
 </div>
 </body>
 </html>

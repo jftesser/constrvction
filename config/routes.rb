@@ -11,7 +11,7 @@ Constrvct::Application.routes.draw do
   
   resources :users, :only => [:show]
 
-  root :to => "designs#index"
+  root :to => "designs#new"
   #root :to => "designs#constrvct"
   #root :to => "devise/registrations#new"
   

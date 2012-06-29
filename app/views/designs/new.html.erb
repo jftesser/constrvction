@@ -136,8 +136,6 @@
       
       init3DBuild(front_mesh, back_mesh, texture_file);
       console.log("init");
-      loadthis(front_mesh);
-      loadthis(back_mesh);
       $('#design-form').val(style_id);
       changeTexture(texture_file);
       
@@ -151,7 +149,7 @@
    
   </script>
 <% end %>
-
+<div class="middle" style="width:888px;">
   <div id="main-design">
     <div id="style-picker">
       <% Form.all.each do |style| %>
@@ -213,7 +211,7 @@
   <% end %>
   </div>
   </div>
-
+</div>
   
 <script type="text/javascript" src='/assets/processingjs/processing-1.3.6.min.js'/>
 <script type="application/processing" >

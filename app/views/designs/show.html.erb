@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<div class="grid">
+<div class="grid middle" style="width:800px;">
 <div id="render-container">
   
 </div>
@@ -12,7 +12,7 @@
    <%= @design.description %> 
   </p>  
   <p>
-    <%= image_tag @design.texture.image.(:thumb), :width => 100 %>
+    <%= image_tag @design.texture.image.url(:thumb), :width => 100 %>
     <%= image_tag @design.form.image.url(:thumb), :width => 100 %>
   </p>
   <h4><span class="grey">artwork by </span> <%= link_to @design.texture.user.username, user_path(@design.texture.user) %></h4>
@@ -24,8 +24,8 @@
 <%= link_to 'Back', designs_path %>
 <% end %>
 </div>
-<div class="grid">
-  <div class="width50">
+
+<div class="grid middle" style="width:800px;">
   <h3 class="underline">also by <%= link_to @design.user.username, user_path(@design.user) %></h3>
   <% @design.user.designs.each do |userdesign| %>
     <% if userdesign.id != @design.id %>
@@ -36,19 +36,18 @@
       </div>
     <% end %>
   <% end %>
-  </div>
 </div>
 
 <%= content_for :scripts do %>
-  <script type="text/javascript" src="/lib3D/Three/Three.js" />
-  <script type="text/javascript" src="/lib3D/Three/OBJLoader.js" />
-  <script type="text/javascript" src="/lib3D/Three/Detector.js" />
-  <script type="text/javascript" src="/lib3D/Three/Stats.js" />
+  <script type="text/javascript" src='/lib3D/Three/Three.js'> </script>
+  <script type="text/javascript" src="/lib3D/Three/OBJLoader.js"> </script>
+  <script type="text/javascript" src="/lib3D/Three/Detector.js" > </script>
+  <script type="text/javascript" src="/lib3D/Three/Stats.js" > </script>
   <script type="text/javascript" src="/lib3D/3D-build.js" > </script>
   
   <script type="text/javascript">
     $(function() {
-      init3DBuild('<%= @design.form.front_mesh.url %>','<%= @design.form.back_mesh.url %>', '<%= @design.texture.image.url(v512) %>');
+      init3DBuild('<%= @design.form.front_mesh.url %>','<%= @design.form.back_mesh.url %>', '<%= @design.texture.image.url(:v512) %>');
     });
   </script>
 <% end %>
