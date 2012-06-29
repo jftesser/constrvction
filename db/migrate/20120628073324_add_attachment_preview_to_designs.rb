@@ -14,6 +14,6 @@ class AddAttachmentPreviewToDesigns < ActiveRecord::Migration
     remove_column :designs, :preview_file_size
     remove_column :designs, :preview_updated_at
     
-    add_column :designs, :preview
+    add_column :designs, :preview, :string
   end
 end

@@ -3,7 +3,6 @@ class DesignsController < ApplicationController
   before_filter :authenticate_admin!, :only => [:edit, :update]
   
   def constrvct
-    #debugger
     @textures = Texture.find(:all, :limit => 21, :order=> 'created_at desc')
     @designs = Design.find(:all, :limit => 20, :order=> 'created_at desc')
   end
@@ -34,10 +33,11 @@ class DesignsController < ApplicationController
   # GET /designs/new
   # GET /designs/new.json
   def new
-    @design = Design.new
     @textures = Texture.find(:all, :limit => 21, :order=> 'created_at desc')
     @designs = Design.find(:all, :limit => 20, :order=> 'created_at desc')
     
+    @design = Design.new
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @design }
@@ -61,7 +61,7 @@ class DesignsController < ApplicationController
       f.write Base64.decode64 @design.image_data.gsub(/^data:image\/(png|jpg)\;base64,/, "")
     end
     
-    @design.preview_file_name = File.open(temp_file_name)
+    @design.preview = File.open(temp_file_name)
 
     respond_to do |format|
       if @design.save
