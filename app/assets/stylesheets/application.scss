@@ -14,17 +14,17 @@
 
 *{
 	margin: 0px;
+	padding: 0px;
 	font-family: 'Tenor Sans', sans-serif;
 	font-weight: normal;
 }
 
 $highlight: #F3FF9E;
 $light-grey: rgb(200,200,200);
+$barely-grey: rgb(250,250,250);
 
 body {
 	background-size: 100% 100%;
-	background: rgb(250,250,250);
-	width: 1280px;
 }
 a {
 	text-decoration: none;
@@ -52,7 +52,8 @@ a:visited{
 }
 
 #top{
-margin-bottom:15px;
+  margin-bottom:15px;
+  position: relative;
 }
 
 h2 {
@@ -72,7 +73,10 @@ h4 {
 	font-weight: normal;
 	font-size: 32px;
 	padding: 10px;
-	float: left;
+	text-align: center;
+	color: white;
+	background: black;
+	letter-spacing: 3px;
 }
 
 .profile-mini {
@@ -85,8 +89,14 @@ h4 {
 }
 
 #main-container {
-	width: 1280px;
+	width: 100%;
   float:left;
+}
+
+.middle {
+  width: 1280px;
+  margin: auto auto;
+  position: relative;
 }
 
 #admin-toolbar {
@@ -122,9 +132,6 @@ h4 {
 }
 
 .login-box {
-	height: 320px;
-	float: left;
-	margin-left: 75px;
 	padding: 20px 40px 20px 20px;
 	border: 5px double black;
 }
@@ -135,6 +142,7 @@ h4 {
   padding: 3px;
   font-size:16px;
   margin-bottom: 10px;
+  width: 90%;
 }
 .login-box p{
   margin-top:20px;
@@ -142,13 +150,19 @@ h4 {
 }
 
 .welcome {
-  font-size: 16px;
-  width: 300px;
-  padding:20px;
-  margin-left:10px;
-  float: left;
+  font-size: 18px;
   line-height: 28px;
-  height:320px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.col2 {
+  width: 50%;
+  float: left;
+}
+
+.right {
+  float: right;
 }
 
 .button {
@@ -161,6 +175,17 @@ h4 {
 }
 a.button {
   color:white;
+}
+
+.tag {
+  position: absolute;
+  right: -94px;
+  top: 10px;
+  width: 75px;
+  padding: 5px 10px;
+  
+  background: black;
+  color: white;
 }
 
 .grid-design-group:hover {

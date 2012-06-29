@@ -48,7 +48,7 @@
   
   <script type="text/javascript">
     $(function() {
-      init3DBuild('<%= @design.form.front_mesh.url %>','<%= @design.form.back_mesh.url %>', '<%= @design.texture.image.square %>');
+      init3DBuild('<%= @design.form.front_mesh.url %>','<%= @design.form.back_mesh.url %>', '<%= @design.texture.image.url(v512) %>');
     });
   </script>
 <% end %>

@@ -1,34 +1,44 @@
-<div id="signup-block">
-<div class="login-box" >
-<h2 class="underline">Sign up</h2>
+<div id="signup-block" class="middle" style="width:600px;">
 
+<div class="login-box" >
+
+<div class="welcome">
+<img src="/assets/formula.png" />  
+<h2 class="underline">Unlock your personal fashion studio. </h2>
+</div>
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
+<div class="col2">
   <div><%= f.label :username %><br />
   <%= f.text_field :username %></div>
 
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
-
+</div>
+<div class="col2 right">
   <div><%= f.label :password %><br />
   <%= f.password_field :password %></div>
 
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
+</div>
 
   <div><a class="button" id="sign-up">Sign Up</a></div>
 <% end %>
-  <p><a id="show-login"> Already a member? Login</a></p>
+
+  <p class="tag"><a id="show-login" > Already a member? Login</a></p>
+  
+</div>
+<!--
+<div id="constrvct-info">
+  Create clothing designs, share with friends, and get  your creations made to order in the finest quality.
+</div>
+-->
+
 </div>
 
-  <div class="welcome">
-  Unlock your personal fashion studio. Create clothing designs, share with friends, and get  your creations made to order in the finest quality.
-  <img src="/assets/formula.png" />
-  </div>
-</div>
-
-<div id="login-block" style="display:none;">
+<div id="login-block" style="display:none; width:600px;" class="middle">
   <div class="login-box" >
   <h2 class="underline">Sign in</h2>
 
@@ -40,18 +50,23 @@
     <%= f.password_field :password %></div>
 
     <% if devise_mapping.rememberable? -%>
-      <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+      <div><%= f.check_box :remember_me, :width =>15 %> <%= f.label :remember_me %></div>
     <% end -%>
 
     <div><a class="button" id="sign-in">Login</a></div>
   <% end %>
 
     <p><%= render "devise/shared/links" %></p>
-    <p><a id="show-signup"> Not yet a member? Sign Up</a></p>
-  </div>
+    <p class="tag"><a id="show-signup"> Not yet a member? Sign Up</a></p>
+</div>
+  
 </div>
 
+
+
 <script>
+$('#main-nav').hide();
+
 $('#sign-up').click(function() {
   $('#new_user').submit();
 })
