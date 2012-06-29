@@ -24,8 +24,15 @@
   
   <div id="top">
   <a href="/"><h1 id="logotype">CONSTRVCT</h1></a>
+    <div class="profile-mini">
+      <%= link_to edit_user_registration_path(current_user)  do %>
+        <%= image_tag current_user.avatar.url(:mini) %>
+        <span><%= current_user.username %></span>
+      <% end %>
+    </div>
   </div>
-  
+ 
+<div id="main-container">    
   <nav id="main-nav">
     <%= link_to 'Constrvct Your Look', new_design_path %>
     <div id="my-closet"></div>
@@ -36,6 +43,7 @@
      
     <%= link_to 'All Constrvcts', designs_path %>
     
+    
     <nav id="registration">
       <% if current_user %>
         <%= link_to 'Log Out', destroy_user_session_path, :method=>:delete %>
@@ -44,14 +52,14 @@
         <%= link_to 'Sign In', new_user_session_path %>    
       <% end %>
     </nav>
-    
+  
   </nav>
   
   <!--
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
   -->
-<div id="main-container">  
+
 <%= yield %>
 </div>
 </body>
