@@ -22,6 +22,7 @@
 $highlight: #F3FF9E;
 $light-grey: rgb(200,200,200);
 $barely-grey: rgb(250,250,250);
+$blush: #FCF9F2;
 
 body {
 	background-size: 100% 100%;
@@ -112,12 +113,12 @@ h4 {
 }
 
 #main-nav{
-		font-size: 13px;
+	font-size: 13px;
 	text-transform: uppercase;
 	text-align: center;
 	height: 30px;
 	margin-bottom:15px;
-	border-bottom: 2px solid black;
+	background: $blush;
 }
 #main-nav a{
 	padding: 8px;
@@ -129,7 +130,7 @@ h4 {
 #main-nav a:hover{
   padding-top: 6px;
   border-bottom: 4px solid black;
-  background-color: $highlight;
+  //background-color: $highlight;
 }
 
 #registration{

@@ -54,7 +54,7 @@ module Constrvct
     config.active_record.whitelist_attributes = true
 
     # Enable the asset pipeline
-    config.assets.enabled = true
+    config.assets.enabled = false
     config.assets.paths << Rails.root.join('vendor', 'assets', 'javascripts', 'Three')
     config.assets.initialize_on_precompile = false
 
