@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120629042304) do
+ActiveRecord::Schema.define(:version => 20120703180356) do
 
   create_table "admins", :force => true do |t|
     t.string   "username"
@@ -49,20 +49,11 @@ ActiveRecord::Schema.define(:version => 20120629042304) do
 
   create_table "forms", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
-    t.string   "front_mesh_file_name"
-    t.string   "front_mesh_content_type"
-    t.integer  "front_mesh_file_size"
-    t.datetime "front_mesh_updated_at"
-    t.string   "back_mesh_file_name"
-    t.string   "back_mesh_content_type"
-    t.integer  "back_mesh_file_size"
-    t.datetime "back_mesh_updated_at"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "icon"
+    t.string   "front_mesh"
+    t.string   "back_mesh"
   end
 
   create_table "textures", :force => true do |t|
@@ -94,10 +85,7 @@ ActiveRecord::Schema.define(:version => 20120629042304) do
     t.string   "authentication_token"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

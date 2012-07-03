@@ -154,7 +154,7 @@
     <div id="style-picker">
       <% Form.all.each do |style| %>
         <div class="style">
-          <%= image_tag style.image.url(:thumb), :'data-mesh-front' => style.front_mesh.url, :'data-mesh-back' => style.back_mesh.url, :'data-form-id' => style.id %>
+          <%= image_tag style.icon.url(:icon50), :'data-mesh-front' => style.front_mesh.url, :'data-mesh-back' => style.back_mesh.url, :'data-form-id' => style.id %>
         </div>
       <% end %>
     </div>
