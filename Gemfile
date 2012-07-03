@@ -16,7 +16,7 @@ gem 'carrierwave'
 gem "fog", "~> 1.3.1"
 gem 'mini_magick'
 gem 'remotipart'
-
+gem 'awesome_print'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -50,5 +50,5 @@ gem 'jquery-rails'
 
 # To use debugger
 group :development do
-  #gem 'ruby-debug'
+  gem 'ruby-debug'
 end
