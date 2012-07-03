@@ -1,5 +1,5 @@
 class Texture < ActiveRecord::Base
-  has_many :designs
+  has_many :designs, :dependent => :destroy
   belongs_to :user
   
   attr_accessible :image, :name, :description
