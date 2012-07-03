@@ -5,6 +5,7 @@
 #   git config --global core.excludesfile ~/.gitignore_global
 
 /config/s3.yml
+/config/google_storage.yml
 
 # Ignore bundler config
 /.bundle
