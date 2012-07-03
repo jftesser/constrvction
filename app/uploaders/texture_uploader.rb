@@ -17,7 +17,7 @@ class TextureUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    "uploads/#{model.class.to_s.underscore}/#{model.id}/#{mounted_as}"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -36,12 +36,16 @@ class TextureUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :square do
+  version :v1024 do
     process :resize_to_fill => [1024, 1024]
   end
   
-  version :thumbnail do
-    process :resize_to_fill => [1024, 1024]
+  version :v512 do
+    process :resize_to_fill => [512, 512]
+  end
+  
+  version :thumb do
+    process :resize_to_fill => [512, 512]
     process :resize_to_fit => [100, 100]
   end
 

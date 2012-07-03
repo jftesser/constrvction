@@ -14,6 +14,6 @@ class AddAttachmentImageToTextures < ActiveRecord::Migration
     remove_column :textures, :image_file_size
     remove_column :textures, :image_updated_at
     
-    add_column :textures, :image
+    add_column :textures, :image, :string
   end
 end
