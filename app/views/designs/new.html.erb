@@ -133,6 +133,7 @@
       
       texture_file = $($('.texture-option')[0]).data('img');
       texture_id = $($('.texture-option')[0]).data('texture-id');
+      console.log(texture_id);
       
       init3DBuild(front_mesh, back_mesh, texture_file);
       console.log("init");
@@ -205,7 +206,7 @@
   <div id="recent-designs">
   <% @designs.each do |design| %>
     <div class="recent-design-group">
-     <%= image_tag design.preview.url, :width => 100, :class =>'recent-design', :'data-mesh-front' => design.form.front_mesh.url, :'data-mesh-back' => design.form.back_mesh.url, :'data-form-id' => design.form.id, :'data-texture-file' => design.texture.image.url(:v512), :'data-texture-id' => design.texture.id  %>
+     <%= image_tag design.preview.url(:thumb200), :width => 100, :class =>'recent-design', :'data-mesh-front' => design.form.front_mesh.url, :'data-mesh-back' => design.form.back_mesh.url, :'data-form-id' => design.form.id, :'data-texture-file' => design.texture.image.url(:v512), :'data-texture-id' => design.texture.id  %>
       <span>by <%= link_to design.user.username, design.user %></span>
     </div>  
   <% end %>

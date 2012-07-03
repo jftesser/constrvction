@@ -4,3 +4,4 @@ $("#texture-picker").prepend('<%= escape_javascript image_tag(@texture.image.url
 $('#design-texture').val(<%= @texture.id %>);
 texture_file = '<%= @texture.image.url(:v512) %>';
 update_texture(texture_file);
+texture_id = <%= @texture.id %>;
