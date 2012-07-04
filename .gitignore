@@ -24,6 +24,3 @@
 /public/users
 /public/design
 /public/forms
-
-# Ignore 3D javascript files
-/public/lib3D
