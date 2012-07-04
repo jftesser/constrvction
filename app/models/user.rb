@@ -10,16 +10,15 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :email, :avatar, :avatar_file_name, :password, :password_confirmation, :remember_me
+  attr_accessible :username, :email, :avatar, :avatar_file_name, :password, :password_confirmation, :remember_me, :invite_code
+  attr_accessor :invite_code
   # attr_accessible :title, :body
   
-  mount_uploader :avatar, AvatarUploader
+  validates_each :invite_code, :on => :create do |record, attr, value|
+      record.errors.add attr, "Please enter correct invite code" unless
+        value && value == "MASHABLE34" || value == "KICKSTARTER56"
+  end
   
-  # has_attached_file :avatar, :styles => { :medium => "300x300#", :thumb => "100x100#", :mini => "50x50#" },
-  # :storage => :s3,
-  # :s3_credentials => "#{Rails.root}/config/s3.yml",
-  # :path => "users/:id/avatar/:basename_:style.:extension",
-  # :bucket => 'constrvct_development'
-#  :default_url => '/images/missing_:style.jpg'
+  mount_uploader :avatar, AvatarUploader
   
 end
