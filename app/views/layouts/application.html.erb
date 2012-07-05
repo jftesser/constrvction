@@ -27,7 +27,9 @@
   <a href="/"><h1 id="logotype">CONSTRVCT</h1></a>
     <div class="profile-mini">
       <%= link_to edit_user_registration_path(current_user)  do %>
+        <% if current_user.avatar.url != "" %>
         <%= image_tag current_user.avatar.url(:mini) %>
+        <% end %>
         <span><%= current_user.username %></span>
       <% end %>
     </div>

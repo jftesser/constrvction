@@ -8,7 +8,18 @@ $light-yellow: #FFFAD4;
 $blue: rgb(0,0,200);
 
 p, ol, ul, td {
-  line-height: 18px; }
+  line-height: 18px; 
+  font-size: 16px;
+}
+
+input {
+  margin-top: 10px;
+  padding: 3px;
+  font-size: 18px;
+}
+label {
+  font-size: 18px;
+}
 
 pre {
   background-color: #eee;
