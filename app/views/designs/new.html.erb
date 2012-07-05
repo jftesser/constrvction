@@ -104,6 +104,8 @@
     
         var designrender = $('#GL')[0].toDataURL("image/png");
         $('#design-preview').val(designrender);
+        $('#design-texture').val(texture_id);
+        $('#design-form').val(style_id);
         var designdiv = document.createElement('div');
         designdiv.setAttribute('class', 'recent-design-group');
         var newdesign = document.createElement("img");  
@@ -125,6 +127,7 @@
         $('#new_texture').submit();
       });
       
+      
       $('.style img').first().addClass('selected');
       front_mesh = $('.style .selected').data('mesh-front');
       back_mesh = $('.style .selected').data('mesh-back');
@@ -142,45 +145,37 @@
       
       
     });
-    
+    /*
     function putDrawing() {
       var canvas = document.getElementById('drawing');
       loadCanvas(canvas); 
     }
-   
+   */
   </script>
 <% end %>
-<div id="my-closet"></div>
+<div id="my-closet">
+</div>
 
 <div >
+  
+  <div class="triangle-box"><span class="triangle-black"></span><h3>Constrvct A Look</h3></div>
   <div id="main-design">
-    <div id="style-picker">
-      <% Form.all.each do |style| %>
-        <div class="style">
-          <%= image_tag style.icon.url(:icon50), :'data-mesh-front' => style.front_mesh.url, :'data-mesh-back' => style.back_mesh.url, :'data-form-id' => style.id %>
-        </div>
-      <% end %>
-    </div>
-    
     <div id="render-container">
     </div>
-    
-    <%= form_for Design.new, :remote => true, :id => 'design-save' do |f| %>
-      <%= f.hidden_field :texture_id, :id => 'design-texture' %>
-      <%= f.hidden_field :form_id, :id => 'design-form' %>
-      <%= f.hidden_field :image_data, :id => 'design-preview' %>
-      <!--
-      <%= f.submit 'Save this design!', :id => 'save-button', :style => 'display:none' %>
-      -->
-      <a class="button" id="save-button" style="display:none;"> SAVE YOUR LOOK </a>
-      <div id="design-title" style="display:none;">
-      <%= f.text_field :title, :placeholder => 'Title Your Look' %>
+  </div>
+  
+<div style="width: 420px; height:800px; float: left;position:relative; margin-left: 100px;">  
+  <div id="style-picker">
+    <h3 class="section-heading">Select Style</h3>
+    <% Form.all.each do |style| %>
+      <div class="style">
+        <%= image_tag style.icon.url(:icon100), :'data-mesh-front' => style.front_mesh.url, :'data-mesh-back' => style.back_mesh.url, :'data-form-id' => style.id %>
       </div>
     <% end %>
   </div>
   
   <div id="artwork">
-    <h3>Add Artwork</h3>
+    <h3 class="section-heading">Add Artwork</h3>
     
     <%= form_for Texture.new, :remote => true, :id => 'texture-upload' do |f| %>
         <a class="button" id="upload-button"> Upload </a>
@@ -193,7 +188,6 @@
         -->
       <% end %>
       
-    
     <div id="available-artwork">
       <div id="texture-picker">
       <% @textures.each do |texture| %>
@@ -201,6 +195,25 @@
       <% end %>
       </div>
     </div>
+  </div>
+  
+  <div id="save-design">
+  <%= form_for Design.new, :remote => true, :id => 'design-save' do |f| %>
+    <%= f.hidden_field :texture_id, :id => 'design-texture' %>
+    <%= f.hidden_field :form_id, :id => 'design-form' %>
+    <%= f.hidden_field :image_data, :id => 'design-preview' %>
+    <!--
+    <%= f.submit 'Save this design!', :id => 'save-button', :style => 'display:none' %>
+    -->
+    <a id="save-button"><span class="circle"></span> Save Your Look </a>
+    
+    <div id="design-title-block">
+      <label class="section-heading" style="display:table;">Title</label>
+    <%= f.text_field :title, :placeholder => 'Title Your Look' %>
+    </div>
+  <% end %>
+  </div>
+  
   </div>
 
   <div id="available-designs">
@@ -215,7 +228,7 @@
   </div>
   </div>
 </div>
-  
+<!--  
 <script type="text/javascript" src='/assets/processingjs/processing-1.3.6.min.js'/>
 <script type="application/processing" >
 </script>
@@ -232,3 +245,4 @@ function startDrawing() {
 }
 
 </script>
+-->

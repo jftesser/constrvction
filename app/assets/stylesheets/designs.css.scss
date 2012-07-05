@@ -4,6 +4,12 @@
 
 $highlight: #F3FF9E;
 $light-grey: rgb(200,200,200);
+$barely-grey: rgb(250,250,250);
+$blush: #FCF9F2;
+$bright-red: #EF4343;
+$coral: #FBD1AB;
+$light-yellow: #FFFAD4;
+$blue: rgb(0,0,200);
 
 @mixin scale($val) {
   transform-origin: top left;
@@ -17,6 +23,19 @@ $light-grey: rgb(200,200,200);
   -webkit-transform:scale($val,$val);
   -o-transform: scale($val,$val);
 }
+@mixin circle($size) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+}
+@mixin triangle-down($w, $h, $color) {
+	width: 0;
+	height: 0;
+	border-left: $w solid transparent;
+	border-right: $w solid transparent;
+	border-top: $h solid $color;
+}
+
 
 #main-design {
   width: 400px;
@@ -30,14 +49,86 @@ $light-grey: rgb(200,200,200);
   float: left;
 }
 
+#new_design {
+
+}
+
+.triangle-box {
+  position: absolute;
+  left: 200px;
+  margin-top: 10px;
+  h3 {
+    position: absolute;
+    color: white;
+    left: 28px;
+    top: 15px;
+    font-size: 20px;
+    text-transform: uppercase;
+    width: 140px;
+    text-align: center;
+  }
+}
+.triangle-black {
+  @include triangle-down(100px, 145px, black);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: inline-block;
+}
+
+#save-button  {
+  width: 102px;
+  height: 60px;
+  padding: 55px 25px 37px 25px;
+  border-radius: 102px;
+  background: black;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 18px;
+  margin: 15px;
+  text-align: center;
+  color: white;
+  margin-left: -75px;
+  float: left;
+}
+
+#save-button:hover {
+  background: $bright-red;
+}
+#save-button:active {
+
+}
+
+#design-title-block {
+  float: left;
+  margin-top: 50px;
+}
+
+#design_title {
+  padding: 3px;
+  font-size: 16px;
+  font-style: italic;
+  float: left;
+}
+
+.section-heading {
+  font-size: 18px;
+  background: black;
+  color: white;
+  padding: 3px;
+  padding-left: 6px;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 #style-picker {
-  width: 300px;
-  position:absolute;
-  top:0px;
-  left:40px;
+  width: 400px;
+  float: left;
+  margin-top: 40px;
 }
 #style-picker img{
-  width: 50px;
+  width: 75px;
   border: 1px solid white;
   cursor: pointer;
 }
@@ -52,62 +143,25 @@ $light-grey: rgb(200,200,200);
 .style {
   display: inline-block;
 }
-#new_design {
-  position: absolute;
-  bottom: 12px;
-  left: 40px;
-  left: 66px
-}
-
-#save-button{
-  font-size: 18px;
-  //padding: 7px 50px;
-  padding: 7px 45px;
-}
-#save-button:hover {
-  border: 5px double black;
-  background: white;
-  color: black;
-  padding: 2px 40px;
- 
-  //transition: color .5s, background .6s;
-  //-moz-transition: color .5s, background .6s;
-  //-webkit-transition: color .5s, background .6s;
-  //-o-transition: color .5s, background .6s; 
-
-}
-#save-button:active {
-  background: $highlight;
-}
-
-#design_title {
-  padding: 3px;
-  font-size: 16px;
-  margin-top: 10px;
-  font-style: italic;
-}
-
-h3 {
-  font-size: 18px;
-}
 
 #new_texture {
   border-bottom: 2px solid black;
-  border-top: 2px solid black;
-  margin-top: 10px;
+  //border-top: 2px solid black;
+  //margin-top: 10px;
   margin-bottom: 5px;
   padding: 10px;
-  background-color: $highlight;
+  background-color: $light-yellow;
 }
 
 #artwork {
-  width: 310px;
+  width: 400px;
   float: left;
+  margin-top: 40px;
 }
 
 #available-artwork {
-  height: 500px;
-  //overflow: scroll;
+  height: 150px;
+  overflow-y: scroll;
 }
 
 .texture-option {
@@ -126,6 +180,9 @@ h3 {
 
 #available-designs{
   width:115px;
+  height: 800px;
+  overflow-y: scroll;
+  padding-right: 30px;
   float: left;
   margin-left:25px;
 }
@@ -134,7 +191,7 @@ h3 {
 }
 #recent-designs {
   width: 115px;
-  height: 535px;
+  height: 100%
   //overflow:scroll;
 }
 .recent-design-group {
@@ -146,11 +203,14 @@ h3 {
   cursor: pointer;
 }
 .recent-design-group span {
-  position: absolute;
-  bottom:5px;
-  left:0px;
-  background: #F0F0F0;
+  background: $blush;
   width: 100%;
+  display: inline-block;
+  overflow: hidden;
+  font-size: 12px;
+  a {
+    font-size: 12px;
+  }
 }
 .recent-design-group p {
   position: absolute;
@@ -160,11 +220,7 @@ h3 {
 }
 
 .recent-design-group span:hover {
-  background: black;
-  color: white;
-}
-.recent-design-group span:hover a{
-  color: white;
+  background: $light-yellow;
 }
 
 .recent-design-group:hover {
@@ -175,10 +231,13 @@ h3 {
 }
 
 #my-closet {
-  max-width: 110px;
-  max-height:150px;
-  overflow:hidden;
-  margin:12px;
+  height: 800px;
+  width: 120px;
+  float: left;
+  overflow: hidden;
+  margin: 12px;
+  position: relative;
+  top: 100px;
 }
 
 #my-closet img{
