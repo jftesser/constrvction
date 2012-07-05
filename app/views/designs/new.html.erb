@@ -101,25 +101,29 @@
       });
       
       $('#save-button').click(function() {
-    
-        var designrender = $('#GL')[0].toDataURL("image/png");
-        $('#design-preview').val(designrender);
-        $('#design-texture').val(texture_id);
-        $('#design-form').val(style_id);
-        var designdiv = document.createElement('div');
-        designdiv.setAttribute('class', 'recent-design-group');
-        var newdesign = document.createElement("img");  
-        newdesign.src = designrender;
-        newdesign.setAttribute('class','recent-design');
-        newdesign.setAttribute('data-texture-id', texture_id);
-        newdesign.setAttribute('data-texture-file', texture_file);
-        newdesign.setAttribute('data-mesh-front', front_mesh);
-        newdesign.setAttribute('data-mesh-back', back_mesh);
-        newdesign.setAttribute('data-form-id', style_id);
-        designdiv.appendChild(newdesign);
-        $("#my-closet").prepend(designdiv);
+        holder.rotation.y = 0;
+        setTimeout(function() {
+           
+          var designrender = $('#GL')[0].toDataURL("image/png");
+          $('#design-preview').val(designrender);
+          $('#design-texture').val(texture_id);
+          $('#design-form').val(style_id);
+          var designdiv = document.createElement('div');
+          designdiv.setAttribute('class', 'recent-design-group');
+          var newdesign = document.createElement("img");  
+          newdesign.src = designrender;
+          newdesign.setAttribute('class','recent-design');
+          newdesign.setAttribute('data-texture-id', texture_id);
+          newdesign.setAttribute('data-texture-file', texture_file);
+          newdesign.setAttribute('data-mesh-front', front_mesh);
+          newdesign.setAttribute('data-mesh-back', back_mesh);
+          newdesign.setAttribute('data-form-id', style_id);
+          designdiv.appendChild(newdesign);
+          $("#my-closet").prepend(designdiv);
         
-        $("#new_design").submit();
+          $("#new_design").submit();
+        
+        },100);
       });
       
       $('#upload-image-button').click(function(){
@@ -227,6 +231,9 @@
   <% end %>
   </div>
   </div>
+</div>
+
+<div id="export-container">
 </div>
 <!--  
 <script type="text/javascript" src='/assets/processingjs/processing-1.3.6.min.js'/>

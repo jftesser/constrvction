@@ -1,5 +1,5 @@
 var container, stats;
-
+var savecontainer, saverenderer, savescene;
 var holder;
 var front, back;
 
@@ -124,15 +124,16 @@ function render() {
 	camera.lookAt(scene.position);
 
 	renderer.render(scene, camera);
-
 }
 
 function init3DBuild(obj1, obj2, img){
 	mouseIsOver = false;
 	
 	container = document.getElementById("render-container");
+	savecontainer = document.getElementById("export-container");
 
 	scene = new THREE.Scene();
+	savescene = new THREE.Scene();
 
 	camera = new THREE.PerspectiveCamera(45, renderw / renderh, 1, 2000);
 	camera.position.z = 120;
@@ -160,12 +161,13 @@ function init3DBuild(obj1, obj2, img){
 	console.log(texture);
 	scene.add(front);
 	scene.add(back);
+	
 	//loadFront(obj1);
 	//loadBack(obj2);
 	
-	console.log(front);
 	
 	scene.add(holder);
+	//savescene.add(holder);
 	loadthis(obj1);
 	loadthis(obj2);
 	
@@ -176,7 +178,15 @@ function init3DBuild(obj1, obj2, img){
 	renderer.domElement.id = "GL";
 	container.appendChild(renderer.domElement);
 	
+	// SAVING RENDERER
+	/*
+	saverenderer = new THREE.WebGLRenderer( { antialias: true, preserveDrawingBuffer : true } );
+	saverenderer.setSize(renderw, renderh);
+	saverenderer.domElement.id = "GLsave";
+	savecontainer.appendChild(saverenderer.domElement);
+	*/
 	animate();
+	//saverenderer.render(savescene, camera);
 
 	container.onmousemove = function(event) {
 		
