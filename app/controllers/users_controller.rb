@@ -7,4 +7,6 @@ class UsersController < ApplicationController
     @user = User.create( params[:user] )
   end
   
+  
+  
 end

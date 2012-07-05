@@ -15,14 +15,20 @@
 *{
 	margin: 0px;
 	padding: 0px;
-	font-family: 'Tenor Sans', sans-serif;
+	//font-family: 'Tenor Sans', sans-serif;
+	font-family: Futura, Tahoma, sans-serif;
 	font-weight: normal;
+	font-size: 16px;
 }
 
 $highlight: #F3FF9E;
 $light-grey: rgb(200,200,200);
 $barely-grey: rgb(250,250,250);
 $blush: #FCF9F2;
+$bright-red: #EF4343;
+$coral: #FBD1AB;
+$light-yellow: #FFFAD4;
+$blue: rgb(0,0,200);
 
 body {
 	background-size: 100% 100%;
@@ -52,6 +58,36 @@ a:visited{
 	-webkit-box-shadow: $valx $valy black;
 	box-shadow:         $valx $valy black;
 }
+
+@mixin circle($size) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+}
+
+@mixin triangle-topright($size, $color) {
+	width: 0;
+	height: 0;
+	border-top: $size solid $color; 
+	border-left: $size solid transparent;
+}		
+
+@mixin triangle-right($w, $h, $color) {
+	width: 0;
+	height: 0;
+	border-top: $h solid transparent;
+	border-left: $w solid $color;
+	border-bottom: $h solid transparent;
+}
+
+@mixin triangle-down($w, $h, $color) {
+	width: 0;
+	height: 0;
+	border-left: $w solid transparent;
+	border-right: $w solid transparent;
+	border-top: $h solid red;
+}
+
 
 #top{
   position: relative;
@@ -94,6 +130,7 @@ h4 {
 
 #main-container {
 	width: 100%;
+	height: 100%;
   float:left;
 }
 
@@ -133,34 +170,6 @@ h4 {
   //background-color: $highlight;
 }
 
-#registration{
-}
-
-.login-box {
-	padding: 20px 40px 20px 20px;
-	border: 5px double black;
-	margin-top: 20px;
-}
-.login-box form{
-  margin-left: 10px;
-}
-.login-box form input {
-  padding: 3px;
-  font-size:16px;
-  margin-bottom: 10px;
-  width: 90%;
-}
-.login-box p{
-  margin-top:20px;
-  margin-left: 10px;
-}
-
-.welcome {
-  font-size: 18px;
-  line-height: 28px;
-  text-align: center;
-  margin-bottom: 20px;
-}
 
 .col2 {
   width: 50%;

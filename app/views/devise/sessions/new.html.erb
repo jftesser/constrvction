@@ -1,48 +1,71 @@
-<div id="signup-block" class="middle" style="width:600px;">
+<style>
+body {
+  background: url('/assets/background.jpg');
+  background-size: 100% ;
+}
+#dressform{
+  position: absolute;
+  top: 0px;
+  left:0px;
+  z-index:5;
+}
 
-<div class="login-box" >
 
-<div class="welcome">
-<img src="/assets/formula.png" />  
-<h2 class="underline">Unlock your personal fashion studio. </h2>
-</div>
+
+</style>
+<div class="middle">
+
+<img id="dressform" src="/assets/mannequin.png" />
+
+<div id="signup-block">
+
+<div class="login-box">
+<h1 id="logo"><img src="/assets/constrvct.png" alt="Constrvct"/></h1>
+
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  
 
-<div class="col2">
   <div><%= f.label :username %><br />
   <%= f.text_field :username %></div>
 
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
-</div>
-<div class="col2 right">
+
+
   <div><%= f.label :password %><br />
   <%= f.password_field :password %></div>
 
-  
   <div><%= f.label :invite_code %><br />
   <%= f.text_field :invite_code %></div>
-</div>
-  
 
-  <div><a class="button" id="sign-up">Sign Up</a></div>
+  
+  <%= devise_error_messages! %>
+  
 <% end %>
-
-  <p class="tag"><a id="show-login" > Already a member? Login</a></p>
+  <div id="sign-up" class="circle-button"><span class="red-circle" ></span><img src="/assets/join.png" alt="Join"/></div>
+  
   
 </div>
-<!--
+
 <div id="constrvct-info">
-  Create clothing designs, share with friends, and get  your creations made to order in the finest quality.
+  <img src="/assets/formula.png" /> 
+  <p>
+  Unlock your own personal fashion design studio.
+  <br /><br />
+  Constrvct it, wear it.
+  </p>
+  <h2>
+  It's a <br />
+  fashion <br />
+  design <br />
+  revolution.
+  </h2>
 </div>
--->
-
 </div>
 
-<div id="login-block" style="display:none; width:600px;" class="middle">
+<div id="login-block" style="display:none; width:700px;">
   <div class="login-box" >
-  <h2 class="underline">Sign in</h2>
+  <h1 id="logo"><img src="/assets/constrvct.png" alt="Constrvct"/></h1>
 
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name) , :class =>'login-form') do |f| %>
     <div><%= f.label :email %><br />
@@ -52,22 +75,26 @@
     <%= f.password_field :password %></div>
 
     <% if devise_mapping.rememberable? -%>
-      <div><%= f.check_box :remember_me, :style =>"width:14px;" %> <%= f.label :remember_me %></div>
+      <div><%= f.check_box :remember_me, :style =>"width:14px;" %> <span> Remember me</span></div>
     <% end -%>
 
-    <div><a class="button" id="sign-in">Login</a></div>
+    <p style="margin-left:100px; margin-top: 0px;"><%= render "devise/shared/links" %></p>
+    <%= devise_error_messages! %>
+    
+    <div class="circle-button" id="sign-in"><span class="red-circle" style="top:-83px; margin-left:-14px;"> </span> <img src="/assets/login.png" alt="Login"/> </div>
   <% end %>
-
-    <p><%= render "devise/shared/links" %></p>
-    <p class="tag"><a id="show-signup"> Not yet a member? Sign Up</a></p>
+  
+    
 </div>
   
 </div>
 
+</div>
 
+<p class="corner-tag" id="show-login"><span class="triangle-topright"></span><a  >Login</a></p>
+<p class="corner-tag" id="show-signup" style="display: none;"><span class="triangle-topright"></span><a >Sign Up</a></p>
 
 <script>
-$('#main-nav').hide();
 
 $('#sign-up').click(function() {
   $('#new_user').submit();
@@ -80,10 +107,14 @@ $('#sign-in').click(function() {
 $('#show-login').click(function() {
   $('#signup-block').hide();
   $('#login-block').show();
+  $('#show-signup').show();
+  $('#show-login').hide();
 })
 $('#show-signup').click(function() {
   $('#login-block').hide();
   $('#signup-block').show();
+  $('#show-login').show();
+  $('#show-signup').hide();
 })
 
 </script>

@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   
   validates_each :invite_code, :on => :create do |record, attr, value|
-      record.errors.add attr, "Please enter correct invite code" unless
+      record.errors.add attr, "required for Priority Access" unless
         value && value == "MASHABLE34" || value == "KICKSTARTER56" || value == "CONSTRVCTIT"
   end
   

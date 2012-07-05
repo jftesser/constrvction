@@ -1,0 +1,144 @@
+$highlight: #F3FF9E;
+$light-grey: rgb(200,200,200);
+$barely-grey: rgb(250,250,250);
+$blush: #FCF9F2;
+$bright-red: #EF4343;
+$coral: #FBD1AB;
+$light-yellow: #FFFAD4;
+$blue: rgb(0,0,200);
+
+@mixin animate($property, $time){
+  transition: $property $time;
+  -moz-transition: $property $time; 
+  -webkit-transition: $property $time; 
+  -o-transition: $property $time;
+}
+
+@mixin circle($size) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+}
+
+@mixin triangle-topright($size, $color) {
+	width: 0;
+	height: 0;
+	border-top: $size solid $color; 
+	border-left: $size solid transparent;
+}
+
+.login-box {
+	padding: 20px 40px 20px 20px;
+	margin-top: 20px;
+}
+.login-box form{
+  margin-left: 10px;
+}
+.login-box form input {
+  padding: 2px;
+  font-size: 20px;
+  margin-bottom: 12px;
+  margin-left: 100px;
+  width: 80%;
+  font-style: italic;
+}
+.login-box p{
+  margin-top:20px;
+  margin-left: 10px;
+}
+
+#signup-block, #login-block {
+  float: left;
+  margin-left: 150px;
+}
+.login-box {
+  width: 700px;
+  float:left;
+}
+.login-box label {
+  color: white;
+  font-size: 24px;
+  background: black;
+  padding-left: 100px;
+  padding-right: 7px;
+  display: inline-block;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+#logo {
+  text-align: center;
+  margin-bottom: 40px;
+}
+#constrvct-info {
+  width: 300px;
+  float: left;
+  margin-top: 90px;
+  
+}
+#constrvct-info p{
+  font-size: 24px;
+  line-height: 40px;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+#constrvct-info h2{
+  font-size: 34px;
+  line-height: 40px;
+  margin-top: 60px;
+}
+#sign-up, #sign-in {
+  margin-top: 40px;
+}
+.corner-tag {
+  position: absolute;
+  right:0px;
+  top:0px;
+}
+
+.triangle-topright {
+	width: 0;
+	height: 0;
+	border-top: 120px solid black; 
+	border-left: 120px solid transparent;
+	position: absolute;
+	top:0px;
+	right:0px;
+}
+
+.corner-tag a{
+  color: white;
+  position: absolute;
+  top:20px;
+  right:10px;
+  text-transform: uppercase;
+  text-align: right;
+  font-size: 18px;
+  line-height:20px;
+}
+
+.red-circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: -1;
+  top: -110px;
+  left: 30%;
+  background: $bright-red;
+  display: inline-block;
+}
+.circle-button {
+  position: relative;
+  height: 100px;
+  cursor: pointer;
+  text-align: center;
+}
+.circle-button .red-circle{
+  opacity: 0;
+  @include animate (opacity, .5s);
+}
+.circle-button:hover .red-circle {
+  opacity: 1;
+  @include animate(opacity, .5s);
+}
+
