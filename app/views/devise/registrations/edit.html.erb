@@ -41,3 +41,21 @@
 <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
 -->
 </div>
+<script>
+var charList = [' ',':', '/', '\\', '&', ';', '+', '=','!', '?', '<', '>', '|', '(', ')', '[', ']', '{', '}', '&', '@', '$', '^', "'", '"', ",", '.', '~', '`', '*', '%', '#' ]; // etc...
+
+function sanitize(el, input) {
+  var s = ''+input;
+  
+	s = s.toLowerCase();
+    for (var i=0; i<charList.length; i++) {
+        var j = s.replace(charList[i], '');
+        s=j;
+    }
+    
+    el.value = s;
+}
+$('#user_username').keyup(function() {
+  sanitize(this, this.value);
+})
+</script>
