@@ -7,6 +7,8 @@ class UsersController < ApplicationController
     @user = User.create( params[:user] )
   end
   
-  
+  def edit
+    @user = current_user
+  end
   
 end

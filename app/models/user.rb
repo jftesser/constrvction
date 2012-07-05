@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
         value && value == "MASHABLE34" || value == "KICKSTARTER56" || value == "CONSTRVCTIT"
   end
   
+  validates_presence_of :username
+  validates_uniqueness_of :username
+  
   mount_uploader :avatar, AvatarUploader
   
 end

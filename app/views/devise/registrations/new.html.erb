@@ -63,6 +63,22 @@ body {
 </div>
 </div>
 <script>
+var charList = [' ',':', '/', '\\', '&', ';', '+', '=','!', '?', '<', '>', '|', '(', ')', '[', ']', '{', '}', '&', '@', '$', '^', "'", '"', ",", '.', '~', '`', '*', '%', '#' ]; // etc...
+
+function sanitize(el, input) {
+  var s = ''+input;
+  
+	s = s.toLowerCase();
+    for (var i=0; i<charList.length; i++) {
+        var j = s.replace(charList[i], '');
+        s=j;
+    }
+    
+    el.value = s;
+}
+$('#user_username').keyup(function() {
+  sanitize(this, this.value);
+})
 
 $('#sign-up').click(function() {
   $('#new_user').submit();
