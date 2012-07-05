@@ -71,6 +71,12 @@ a:visited{
 	border-top: $size solid $color; 
 	border-left: $size solid transparent;
 }		
+@mixin triangle-topleft($size, $color) {
+	width: 0;
+	height: 0;
+	border-top: $size solid $color; 
+	border-right: $size solid transparent;
+}
 
 @mixin triangle-right($w, $h, $color) {
 	width: 0;
@@ -106,14 +112,42 @@ h4 {
   color: $light-grey;
 }
 
+.sidebar {
+  background: $blush;
+  width: 175px;
+  height: 100%;
+  min-height: 900px;
+  float: left;
+  overflow: hidden;
+  position: relative;
+}
+#logobox {
+  padding: 15px;
+  position: relative;
+}
+#logocorner {
+  @include triangle-topleft(175px, $light-yellow);
+  display: inline-block;
+  position:absolute;
+  top: 0px;
+}
 #logotype {
 	font-weight: normal;
 	font-size: 32px;
-	padding: 10px;
 	text-align: center;
-	color: white;
-	background: black;
 	letter-spacing: 3px;
+	
+	width: 110px;
+	height: 125px;
+	background-repeat: no-repeat;
+	background-position: left top;
+	background: image-url("constrvct-sprite.png");
+	z-index:2;
+	margin: 30px;
+	position: absolute;
+}
+#logotype:hover {
+  background-position: right top;
 }
 
 .profile-mini {
@@ -147,27 +181,60 @@ h4 {
 }
 #admin-toolbar a{
 	color:white;
+	margin: 0px 15px;
+}
+
+.profile-circle {
+  @include circle(200px);
+  overflow: hidden;
+}
+
+.username {
+  text-transform: uppercase;
+}
+
+.user-nav {
+  margin-top: 175px;
+  float: right;
+  text-align: right;
+  span {
+    display: inline-block;
+    padding: 5px;
+  }
+  img {
+    position: relative;
+    //left: 70px;
+    left: 37px;
+  }
 }
 
 #main-nav{
 	font-size: 13px;
 	text-transform: uppercase;
-	text-align: center;
 	height: 30px;
 	margin-bottom:15px;
 	background: $blush;
+	text-align: right;
+	float: right;
+	z-index: 1;
+	margin-top: 30px;
 }
 #main-nav a{
 	padding: 8px;
 	padding-top: 8px;
   display: inline-block;
-	float: left;
+	float: right;
+	text-align: right;
 }
 
 #main-nav a:hover{
   padding-top: 6px;
   border-bottom: 4px solid black;
   //background-color: $highlight;
+}
+
+#registration {
+  margin-top: 30px;
 }
 
 
