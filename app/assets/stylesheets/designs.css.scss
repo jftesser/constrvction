@@ -35,6 +35,12 @@ $blue: rgb(0,0,200);
 	border-right: $w solid transparent;
 	border-top: $h solid $color;
 }
+@mixin animate($property, $time){
+  transition: $property $time;
+  -moz-transition: $property $time; 
+  -webkit-transition: $property $time; 
+  -o-transition: $property $time;
+}
 
 
 #main-design {
@@ -90,10 +96,12 @@ $blue: rgb(0,0,200);
   color: white;
   margin-left: -75px;
   float: left;
+  @include animate(background, .5s);
 }
 
 #save-button:hover {
   background: $bright-red;
+  @include animate(background, .5s);
 }
 #save-button:active {
 

@@ -1,4 +1,6 @@
 Constrvct::Application.routes.draw do
+  get "forms/index"
+
   devise_for :admins, :controllers => {:sessions => 'admin_sessions'}
 
   resources :designs
