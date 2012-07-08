@@ -158,18 +158,26 @@ function init3DBuild(obj1, obj2, img){
 	back = new THREE.Object3D();
 	
 	texture = THREE.ImageUtils.loadTexture(img);
-	console.log(texture);
-	scene.add(front);
-	scene.add(back);
-	
-	//loadFront(obj1);
-	//loadBack(obj2);
 	
 	
 	scene.add(holder);
 	//savescene.add(holder);
 	loadthis(obj1);
 	loadthis(obj2);
+	
+	var windowsize=viewport();
+	var ratio = renderw/renderh;
+	if (windowsize.height> renderh){
+		console.log(windowsize.height);
+		var h = windowsize.height;
+		if (h > 850) {
+			renderh = 850;
+		} else {
+			renderh = windowsize.height;
+		}
+		
+		renderw = renderh * ratio;
+	}
 	
 	// RENDERER
 
@@ -219,3 +227,14 @@ function init3DBuild(obj1, obj2, img){
 	}
 }
 
+function viewport()
+{
+var e = window
+, a = 'inner';
+if ( !( 'innerWidth' in window ) )
+{
+a = 'client';
+e = document.documentElement || document.body;
+}
+return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
+}

@@ -175,6 +175,12 @@ function init3DBuild(obj1, obj2, img){
 	//loadthis(obj2,img);
 	
 	// RENDERER
+	
+	var windowsize=viewport();
+	console.log(windowsize);
+	if (windowsize.height> renderh){
+		console.log(windowsize.height);
+	}
 
 	renderer = new THREE.WebGLRenderer( { antialias: true, preserveDrawingBuffer : true } );
 	renderer.setSize(renderw, renderh);
@@ -215,3 +221,14 @@ function init3DBuild(obj1, obj2, img){
 	console.log("hey hey hey");
 }
 
+function viewport()
+{
+var e = window
+, a = 'inner';
+if ( !( 'innerWidth' in window ) )
+{
+a = 'client';
+e = document.documentElement || document.body;
+}
+return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
+}
