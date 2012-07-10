@@ -13,10 +13,11 @@
     var front_canvas, back_canvas;
     
     function changeTexture(img){
-    	
-    	texture = THREE.ImageUtils.loadTexture(img);
-
     	front_image.src = img;
+    	edit_x = 0;
+    	edit_y = 0;
+    	edit_px = 0;
+    	edit_py = 0;
     }
     
     function changeModel(obj1, obj2) {
@@ -140,16 +141,16 @@
       
       texture_file = $($('.texture-option')[0]).data('img');
       texture_id = $($('.texture-option')[0]).data('texture-id');
-      console.log(texture_id);
       
       init3DBuild(front_mesh, back_mesh, texture_file);
-      console.log("init");
       $('#design-form').val(style_id);
       changeTexture(texture_file);
       
       front_image.onload = function() {
         front_ctx.drawImage(front_image, 0,0);
         back_ctx.drawImage(front_image, 0,0);
+        loadModelCanvas(front, front_canvas);
+        loadModelCanvas(back, back_canvas);
       }
       
       front_canvas = document.getElementById('front-texture')
@@ -157,12 +158,113 @@
       back_canvas = document.getElementById('back-texture')
       back_ctx = back_canvas.getContext('2d');
       
+      edit_dx = getPositionLeft(front_canvas) - 5;
+  		edit_dy = getPositionTop(front_canvas) - 5;
+      
+      document.onmousedown = function() {
+        mousePressed = true;
+      }
+      document.onmouseup = function() {
+        mousePressed = false;
+      }
+
+      front_canvas.onmousedown = function (evt) {
+        edit_x = evt.pageX - edit_dx;
+    		edit_y = evt.pageY - edit_dy;
+    		
+        evt.preventDefault();
+        evt.stopPropagation();
+        front_canvas.style.cursor = 'move';
+        
+        mousePressed = true;
+      }
+
+      front_canvas.onmousemove = function (e) {
+       
+        if (mousePressed) {
+          edit_px = edit_x;
+      		edit_py = edit_y;
+          
+          edit_x = e.pageX - edit_dx;
+      		edit_y = e.pageY - edit_dy;
+      	
+      		front_x = front_x + (edit_x - edit_px);
+      		front_y = front_y + (edit_y - edit_py);
+
+      		front_ctx.clearRect(0,0,front_canvas.width, front_canvas.height);
+      		fillWhite(front_canvas);
+      		front_ctx.drawImage(front_image, front_x,front_y);
+      		
+      		loadModelCanvas(front, front_canvas);
+        }
+      }
+      
+      back_canvas.onmousedown = function (evt) {
+        edit_dx = getPositionLeft(back_canvas) - 5;
+    		edit_dy = getPositionTop(back_canvas) - 5;
+        
+        edit_x = evt.pageX - edit_dx;
+    		edit_y = evt.pageY - edit_dy;
+    		
+        evt.preventDefault();
+        evt.stopPropagation();
+        back_canvas.style.cursor = 'move';
+        
+        mousePressed = true;
+      }
+
+      back_canvas.onmousemove = function (e) {
+       
+        if (mousePressed) {
+          edit_px = edit_x;
+      		edit_py = edit_y;
+          
+          edit_x = e.pageX - edit_dx;
+      		edit_y = e.pageY - edit_dy;
+      	
+      		back_x = back_x + (edit_x - edit_px);
+      		back_y = back_y + (edit_y - edit_py);
+
+      		back_ctx.clearRect(0,0,back_canvas.width, back_canvas.height);
+      		fillWhite(back_canvas);
+      		back_ctx.drawImage(front_image, back_x,back_y);
+      		
+      		loadModelCanvas(back, back_canvas);
+        }
+      }
+      
+      $('.close-button').click( function(){
+        $(this).parent().hide();
+      })
+      
+      $('#edit-button').click( function(){
+        $('#editor').show();
+      })
+      
+      $('#toggle-front').click( function(){
+        console.log('edit-front');
+        $('#front-texture').css('z-index', 5);
+        $('#back-texture').css('z-index', 4);
+      })
+      $('#toggle-back').click( function(){
+        $('#front-texture').css('z-index', 4);
+        $('#back-texture').css('z-index', 5);
+      })
+      
     });
     
-    $('#edit-button').click( function(){
-      loadModelCanvas(front, front_canvas);
-      loadModelCanvas(back, back_canvas);
-    })
+    
+    var edit_dx=0, edit_dy=0, edit_x=0, edit_y=0, edit_px=0, edit_py=0;
+    var front_x=0, front_y=0, back_x=0, back_y=0;
+    var mousePressed = false;
+    
+    function fillWhite(canvas) {
+      var ctx = canvas.getContext('2d');
+      ctx.beginPath();
+  		ctx.rect(0,0, canvas.width, canvas.height);
+  		ctx.fillStyle = 'white';
+      ctx.fill();
+    }
    
   </script>
 <% end %>
@@ -196,10 +298,9 @@
         <%= f.file_field :image, :style => 'display:none' %>
         <br />
         <a class="button" id="upload-image-button" style="display:none;"> Upload Image </a>
-        <!--
-        <%= f.submit 'Upload image', :id => 'upload-image-button', :style => 'display:none' %>
-        -->
+        
       <% end %>
+      <a class="button" id="edit-button" > Edit </a>
       
     <div id="available-artwork">
       <div id="texture-picker">
@@ -230,8 +331,14 @@
   </div>
   
   <div id="editor">
-    <canvas id="front-texture" width=512 height=512></canvas>
-    <canvas id="back-texture" width=512 height=512></canvas>
+    <a class="close-button">close</a>
+    <a class="button" id="toggle-front">front</a>
+    <a class="button" id="toggle-back">back</a>
+    <span>drag to position image</span>
+    <div id="canvas-container">
+      <canvas id="front-texture" width=512 height=512></canvas>
+      <canvas id="back-texture" width=512 height=512></canvas>
+    </div>
   </div>
   
   <div id="available-designs">
@@ -249,9 +356,40 @@
 
 
 <style>
-#editor canvas {
-  border: 1px solid black;
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+#editor {
+  padding: 5px;
+  border: 5px solid black;
+  background: white;
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  height: 550px;
+  width: 542px;
   
+  z-index: 3;
+}
+
+#editor canvas {
+  border: 1px solid rgb(150,150,150);
+  cursor: move;
+  position: absolute;
+  top: 30px;
+  left: 20px;
+}
+#editor canvas:active {
+  cursor: move;
+}
+#front-texture {
+  z-index: 5;
+}
+#back-texture {
+  z-index: 4;
 }
 </style>
 

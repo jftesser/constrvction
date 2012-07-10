@@ -173,8 +173,10 @@ function init3DBuild(obj1, obj2, img){
 	loadModel(front,obj1);
 	loadModel(back,obj2);
 	
-	texture = THREE.ImageUtils.loadTexture(img);
-	
+	//texture = THREE.ImageUtils.loadTexture(img);
+	texture = new THREE.Texture(front_canvas);
+	canvastexture=true;
+	texture.needsUpdate = true;
 
 	scene.add(front);
 	scene.add(back);
