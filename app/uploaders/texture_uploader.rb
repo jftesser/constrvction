@@ -36,9 +36,6 @@ class TextureUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :v1024 do
-    process :resize_to_fill => [1024, 1024]
-  end
   
   version :v512 do
     process :orientation
@@ -46,6 +43,9 @@ class TextureUploader < CarrierWave::Uploader::Base
       #process :resize_to_fit => [512, nil]
   end
   
+  version :v1024 do
+    process :resize_to_fill => [1024, 1024]
+  end
   
   version :thumb do
     process :resize_to_fill => [512, 512]
@@ -68,9 +68,9 @@ class TextureUploader < CarrierWave::Uploader::Base
       manipulate! do |img|
         pic = MiniMagick::Image.open(img.path)
         if pic[:width] >= pic[:height]
-          img.resize "1024x512"
+          img.resize "10000x512"
         else
-          img.resize "512x1024"
+          img.resize "512x10000"
         end
         img = yield(img) if block_given?
         img

@@ -32,13 +32,12 @@ function loadthis(model) {
 		object.scale.set(6.5, 6.5, 6.5);
 
 		holder.add(object);
-		//console.log(object);
 	});
 }
 
-function loadModel(path) {
+function loadModel(obj,path) {
 	var loader = new THREE.OBJLoader();
-	var obj = new THREE.Object3D();
+	//var obj = new THREE.Object3D();
 	//var tex = THREE.ImageUtils.loadTexture(img);
 	
 	loader.load(path, function(object) {
@@ -57,7 +56,7 @@ function loadModel(path) {
 		obj.add(object);
 		//console.log(object);
 	});
-	return obj;
+	//return obj;
 }
 
 
@@ -71,6 +70,18 @@ function loadCanvas(canvas){
 
 		holder.children[0].children[i].material.map = texture;
 		holder.children[0].children[i].doubleSided = true;
+	}
+}
+
+function loadModelCanvas(object, canvas){
+	canvastexture = true;
+	texture = new THREE.Texture(canvas);
+	texture.needsUpdate = true;
+	
+	for(var i = 0, l = object.children[0].children.length; i < l; i++) {
+
+		object.children[0].children[i].material.map = texture;
+		object.children[0].children[i].doubleSided = true;
 	}
 }
 
@@ -114,11 +125,14 @@ function animate() {
 
 function render() {
 	if (mouseIsOver == false) {
-		xang = holder.rotation.x*0.99;
-		yang = holder.rotation.y*0.99;
+		xang = front.rotation.x*0.99;
+		yang = front.rotation.y*0.99;
 
-		holder.rotation.x = xang;
-		holder.rotation.y = yang;
+		front.rotation.x = xang;
+		front.rotation.y = yang;
+		
+		back.rotation.x = xang;
+		back.rotation.y = yang;
 	}
 	
 	camera.lookAt(scene.position);
@@ -156,14 +170,15 @@ function init3DBuild(obj1, obj2, img){
 	holder = new THREE.Object3D();
 	front = new THREE.Object3D();
 	back = new THREE.Object3D();
+	loadModel(front,obj1);
+	loadModel(back,obj2);
 	
 	texture = THREE.ImageUtils.loadTexture(img);
 	
-	
-	scene.add(holder);
-	//savescene.add(holder);
-	loadthis(obj1);
-	loadthis(obj2);
+
+	scene.add(front);
+	scene.add(back);
+
 	
 	var windowsize=viewport();
 	var ratio = renderw/renderh;
@@ -207,13 +222,14 @@ function init3DBuild(obj1, obj2, img){
 		mousex = event.pageX - dx;
 		mousey = event.pageY - dy;
 		ease = 0.9;
-		yang = ((mousex / (renderw * 1.0) - 0.5) * Math.PI * 2.0)*(1.0-ease)+holder.rotation.y*ease;
-		xang = ((mousey / (renderh * 1.0) - 0.5) * Math.PI * 0.3)*(1.0-ease)+holder.rotation.x*ease;
+		yang = ((mousex / (renderw * 1.0) - 0.5) * Math.PI * 2.0)*(1.0-ease)+front.rotation.y*ease;
+		xang = ((mousey / (renderh * 1.0) - 0.5) * Math.PI * 0.3)*(1.0-ease)+front.rotation.x*ease;
 
-		holder.rotation.x = xang;
-		holder.rotation.y = yang;
+		front.rotation.x = xang;
+		front.rotation.y = yang;
+		back.rotation.x = xang;
+		back.rotation.y = yang;
 
-		//console.log(mousex-pmousex);
 		$("#GL").css('z-index',10);
 
 	}
@@ -227,14 +243,13 @@ function init3DBuild(obj1, obj2, img){
 	}
 }
 
-function viewport()
-{
-var e = window
-, a = 'inner';
-if ( !( 'innerWidth' in window ) )
-{
-a = 'client';
-e = document.documentElement || document.body;
-}
-return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
+function viewport() {
+	var e = window
+	, a = 'inner';
+	if ( !( 'innerWidth' in window ) )
+	{
+	a = 'client';
+	e = document.documentElement || document.body;
+	}
+	return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
 }

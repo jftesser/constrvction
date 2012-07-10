@@ -8,28 +8,28 @@
     var front_mesh, back_mesh;
     var style_id, texture_id;
     var texture_file;
+    var front_image = new Image();
+    var front_ctx, back_ctx;
+    var front_canvas, back_canvas;
     
     function changeTexture(img){
-    	console.log(img);
-    	canvastexture = false;
+    	
     	texture = THREE.ImageUtils.loadTexture(img);
 
-    	for (var a=0; a <holder.children.length; a++) {
-    		for(var i = 0, l = holder.children[a].children.length; i < l; i++) {
-
-    			holder.children[a].children[i].material.map = texture;
-    			holder.children[a].children[i].doubleSided = true;
-    		}
-    	}
+    	front_image.src = img;
     }
     
     function changeModel(obj1, obj2) {
-    	scene.remove(holder);
-    	holder = new THREE.Object3D();
-
-    	loadthis(obj1);
-    	loadthis(obj2);
-    	scene.add(holder);
+    	scene.remove(front);
+    	scene.remove(back);
+    	front = new THREE.Object3D();
+    	back = new THREE.Object3D();
+    	
+    	loadModel(front,obj1);
+    	loadModel(back,obj2);
+    	
+    	scene.add(front);
+    	scene.add(back);
     }
     
     function update_texture(file) {
@@ -147,8 +147,22 @@
       $('#design-form').val(style_id);
       changeTexture(texture_file);
       
+      front_image.onload = function() {
+        front_ctx.drawImage(front_image, 0,0);
+        back_ctx.drawImage(front_image, 0,0);
+      }
+      
+      front_canvas = document.getElementById('front-texture')
+      front_ctx = front_canvas.getContext('2d');
+      back_canvas = document.getElementById('back-texture')
+      back_ctx = back_canvas.getContext('2d');
       
     });
+    
+    $('#edit-button').click( function(){
+      loadModelCanvas(front, front_canvas);
+      loadModelCanvas(back, back_canvas);
+    })
    
   </script>
 <% end %>
@@ -214,7 +228,12 @@
   </div>
   
   </div>
-
+  
+  <div id="editor">
+    <canvas id="front-texture" width=512 height=512></canvas>
+    <canvas id="back-texture" width=512 height=512></canvas>
+  </div>
+  
   <div id="available-designs">
     <h3>Newest Constrvcts</h3>
   <div id="recent-designs">
@@ -227,6 +246,14 @@
   </div>
   </div>
 </div>
+
+
+<style>
+#editor canvas {
+  border: 1px solid black;
+  
+}
+</style>
 
 <!--  
 <script type="text/javascript" src='/assets/processingjs/processing-1.3.6.min.js'/>
