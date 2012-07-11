@@ -42,6 +42,17 @@ $blue: rgb(0,0,200);
   -o-transition: $property $time;
 }
 
+@mixin shadow($val1, $val2, $val3, $val4, $color) {
+	-moz-box-shadow:    $val1 $val2 $val3 $val4 $color;
+	-webkit-box-shadow: $val1 $val2 $val3 $val4 $color;
+	box-shadow:         $val1 $val2 $val3 $val4 $color;
+}
+
+@mixin shadow-matte($valx, $valy) {
+	-moz-box-shadow:    $valx $valy black;
+	-webkit-box-shadow: $valx $valy black;
+	box-shadow:         $valx $valy black;
+}
 
 #main-design {
   width: 400px;
@@ -63,6 +74,7 @@ $blue: rgb(0,0,200);
   position: absolute;
   left: 200px;
   margin-top: 10px;
+  z-index: 2;
   h3 {
     position: absolute;
     color: white;
@@ -205,30 +217,26 @@ $blue: rgb(0,0,200);
 }
 
 #available-designs{
-  width:115px;
-  height: 800px;
-  overflow-y: scroll;
-  padding-right: 30px;
   float: left;
   margin-left:25px;
 }
 #recent-design {
-  width: 100px;
+
 }
-#recent-designs {
-  width: 115px;
-  height: 100%
-  //overflow:scroll;
+.recent-design-group img {
+  width: 150px;
 }
 .recent-design-group {
-  width: 100px;
+  width: 200px;
   display: inline-block;
   text-align: center;
   border: 1px solid rgb(250,250,250);
   position: relative;
   cursor: pointer;
+  margin: 3px;
 }
 .recent-design-group span {
+  opacity: 0;
   background: $blush;
   width: 100%;
   display: inline-block;
@@ -251,6 +259,9 @@ $blue: rgb(0,0,200);
 
 .recent-design-group:hover {
   border: 1px solid $light-grey;
+  span {
+    opacity: 1;
+  }
 }
 .selected-design {
   border: 1px solid black;
@@ -274,9 +285,21 @@ $blue: rgb(0,0,200);
   width:206px;
   display: inline-block;
   text-align: center;
-  border: 1px solid $light-grey;
+  border: 1px solid $barely-grey;
+  background: $barely-grey;
   margin: 10px;
 }
+.grid-design-group:hover {
+  border: 1px solid $light-grey;
+  @include shadow-matte(-5px, 5px);
+  position:relative;
+  top:-3px;
+  left: 3px;
+}
+.grid-design-group *{
+  font-size: 14px;
+}
+
 .design-unit {
   position: relative;
 }
@@ -309,7 +332,7 @@ $blue: rgb(0,0,200);
 
 #editor {
   padding: 15px;
-  border: 5px solid rgb(150,150,150);
+  border: 5px solid #DDDDDD;
   background: $blush;
   position: absolute;
   top: 10px;
@@ -318,8 +341,9 @@ $blue: rgb(0,0,200);
   width: 266px;
   
   z-index: 3;
+  @include shadow(0px, 0px, 20px, 15px, rgba(250,250,250, .6));
 }
-#editor span{
+#editor span,a{
   color: rgb(150,150,150);
 }
 

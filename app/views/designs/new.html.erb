@@ -278,11 +278,16 @@
       })
       
       $('#toggle-front').click( function(){
-        console.log('edit-front');
+        $('.active-tab').removeClass('active-tab');
+        $(this).addClass('active-tab');
+        
         $('#front-texture').css('z-index', 5);
         $('#back-texture').css('z-index', 4);
       })
       $('#toggle-back').click( function(){
+        $('.active-tab').removeClass('active-tab');
+        $(this).addClass('active-tab');
+        
         $('#front-texture').css('z-index', 4);
         $('#back-texture').css('z-index', 5);
       })
@@ -373,7 +378,7 @@
   </div>
   
   <div id="editor">
-    <span><a class="close-button">x</a></span>
+    <a class="close-button">x</a>
     <a class="button active-tab" id="toggle-front">front</a>
     <a class="button" id="toggle-back">back</a>
     
@@ -385,11 +390,12 @@
   </div>
   
   <div id="available-designs">
-    <h3>Newest Constrvcts</h3>
+    <div class="triangle-box" style="margin-top: -120px; opacity: .6;"><span class="triangle-black"></span><h3 style="font-size: 17px;">Newest Constrvcts</h3></div>
+    
   <div id="recent-designs">
   <% @designs.each do |design| %>
     <div class="recent-design-group">
-     <%= image_tag design.preview.url(:thumb200), :width => 100, :class =>'recent-design', :'data-mesh-front' => design.form.front_mesh.url, :'data-mesh-back' => design.form.back_mesh.url, :'data-form-id' => design.form.id, :'data-texture-file' => design.texture.image.url(:v512), :'data-texture-id' => design.texture.id, :'data-front-texture' => design.front_texture, :'data-back-texture' => design.back_texture, :'data-frontx' => design.front_texture_x, :'data-fronty' => design.front_texture_y, :'data-backx' => design.back_texture_x, :'data-backy' => design.back_texture_y %>
+     <%= image_tag design.preview.url(:thumb200), :class =>'recent-design', :'data-mesh-front' => design.form.front_mesh.url, :'data-mesh-back' => design.form.back_mesh.url, :'data-form-id' => design.form.id, :'data-texture-file' => design.texture.image.url(:v512), :'data-texture-id' => design.texture.id, :'data-front-texture' => design.front_texture, :'data-back-texture' => design.back_texture, :'data-frontx' => design.front_texture_x, :'data-fronty' => design.front_texture_y, :'data-backx' => design.back_texture_x, :'data-backy' => design.back_texture_y %>
       <span>by <%= link_to design.user.username, design.user %></span>
     </div>  
   <% end %>

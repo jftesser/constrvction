@@ -119,7 +119,8 @@ h4 {
   min-height: 900px;
   float: left;
   overflow: hidden;
-  position: relative;
+  //position: relative;
+  position: fixed;
 }
 #logobox {
   padding: 15px;
@@ -163,10 +164,11 @@ h4 {
 }
 
 #main-container {
-	width: 100%;
+	width: 100% -175px ;
 	min-width: 1280px;
 	height: 100%;
   float:left;
+
 }
 
 .middle {
@@ -275,15 +277,8 @@ a.button {
   color: white;
 }
 
-.grid-design-group:hover {
-  @include shadow-matte(-5px, 5px);
-  position:relative;
-  top:-3px;
-  left: 3px;
-}
-
 .grid {
-  width: 1024px;
+  width: 1160px;
   clear: both;
 }
 
