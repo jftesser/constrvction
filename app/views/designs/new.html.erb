@@ -14,10 +14,11 @@
     
     function changeTexture(img){
     	front_image.src = img;
-    	edit_x = 0;
-    	edit_y = 0;
-    	edit_px = 0;
-    	edit_py = 0;
+
+    	front_x = 0;
+      front_y = 0;
+      back_x = 0;
+      back_y = 0;
     }
     
     function changeModel(obj1, obj2) {
@@ -94,15 +95,30 @@
         
         if ($(this).data('form-id') != $('#design-form').val()) {
           style_id = $(this).data('form-id');
-          update_texture(texture_file);
           update_style();
+        } 
+        
+        if ($(this).data('frontx')) {
+          console.log("mapped");
+          front_x = $(this).data('frontx')*front_image.width*-1;
+          front_y = $(this).data('fronty')*front_image.height*-1;
+          back_x = $(this).data('backx')*front_image.width*-1;
+          back_y = $(this).data('backy')*front_image.height*-1;
         } else {
-          update_texture(texture_file );
+          front_x = 0;
+          front_y = 0;
+          back_x = 0;
+          back_y = 0;
         }
+        front_image.src = texture_file;
+        loadModelCanvas(front, front_canvas);
+        loadModelCanvas(back, back_canvas);
+        
       });
       
       $('#save-button').click(function() {
-        holder.rotation.y = 0;
+        front.rotation.y = 0;
+        back.rotation.y = 0;
         setTimeout(function() {
            
           var designrender = $('#GL')[0].toDataURL("image/png");
@@ -115,12 +131,11 @@
           $('#design-front-texture').val(frontimg);
           $('#design-back-texture').val(backimg);
           
+          //we set the x,y coords normalized relative to the image
           $('#design-front-x').val(-1*front_x/front_image.width);
           $('#design-front-y').val(-1*front_y/front_image.height);
           $('#design-back-x').val(-1*back_x/front_image.width);
           $('#design-back-y').val(-1*back_y/front_image.height);
-          
-          $("#new_design").submit();
           
           var designdiv = document.createElement('div');
           designdiv.setAttribute('class', 'recent-design-group');
@@ -132,9 +147,15 @@
           newdesign.setAttribute('data-mesh-front', front_mesh);
           newdesign.setAttribute('data-mesh-back', back_mesh);
           newdesign.setAttribute('data-form-id', style_id);
+          newdesign.setAttribute('data-frontx', -1*front_x/front_image.width);
+          newdesign.setAttribute('data-fronty', -1*front_y/front_image.height);
+          newdesign.setAttribute('data-backx', 1*back_x/front_image.width);
+          newdesign.setAttribute('data-backy', 1*back_y/front_image.height);
+          
           designdiv.appendChild(newdesign);
           $("#my-closet").prepend(designdiv);
-
+          
+          $("#new_design").submit();
         
         },100);
       });
@@ -159,8 +180,10 @@
       changeTexture(texture_file);
       
       front_image.onload = function() {
-        front_ctx.drawImage(front_image, 0,0);
-        back_ctx.drawImage(front_image, 0,0);
+        fillWhite(front_canvas)
+        fillWhite(back_canvas)
+        front_ctx.drawImage(front_image, front_x,front_y);
+        back_ctx.drawImage(front_image, back_x,back_y);
         loadModelCanvas(front, front_canvas);
         loadModelCanvas(back, back_canvas);
       }
@@ -330,10 +353,10 @@
     <%= f.hidden_field :image_data, :id => 'design-preview' %>
     <%= f.hidden_field :front_texture_data, :id => 'design-front-texture' %>
     <%= f.hidden_field :back_texture_data, :id => 'design-back-texture' %>
-    <%= f.text_field :front_texture_x, :id => 'design-front-x' %>
-    <%= f.text_field :front_texture_y, :id => 'design-front-y' %>
-    <%= f.text_field :back_texture_x, :id => 'design-back-x' %>
-    <%= f.text_field :back_texture_y, :id => 'design-back-y' %>
+    <%= f.hidden_field :front_texture_x, :id => 'design-front-x' %>
+    <%= f.hidden_field :front_texture_y, :id => 'design-front-y' %>
+    <%= f.hidden_field :back_texture_x, :id => 'design-back-x' %>
+    <%= f.hidden_field :back_texture_y, :id => 'design-back-y' %>
     <!--
     <%= f.submit 'Save this design!', :id => 'save-button', :style => 'display:none' %>
     -->
@@ -364,7 +387,7 @@
   <div id="recent-designs">
   <% @designs.each do |design| %>
     <div class="recent-design-group">
-     <%= image_tag design.preview.url(:thumb200), :width => 100, :class =>'recent-design', :'data-mesh-front' => design.form.front_mesh.url, :'data-mesh-back' => design.form.back_mesh.url, :'data-form-id' => design.form.id, :'data-texture-file' => design.texture.image.url(:v512), :'data-texture-id' => design.texture.id  %>
+     <%= image_tag design.preview.url(:thumb200), :width => 100, :class =>'recent-design', :'data-mesh-front' => design.form.front_mesh.url, :'data-mesh-back' => design.form.back_mesh.url, :'data-form-id' => design.form.id, :'data-texture-file' => design.texture.image.url(:v512), :'data-texture-id' => design.texture.id, :'data-front-texture' => design.front_texture, :'data-back-texture' => design.back_texture, :'data-frontx' => design.front_texture_x, :'data-fronty' => design.front_texture_y, :'data-backx' => design.back_texture_x, :'data-backy' => design.back_texture_y %>
       <span>by <%= link_to design.user.username, design.user %></span>
     </div>  
   <% end %>
