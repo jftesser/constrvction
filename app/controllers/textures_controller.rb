@@ -4,7 +4,7 @@ class TexturesController < ApplicationController
   # GET /textures
   # GET /textures.json
   def index
-    @textures = Texture.find(:all, :limit => 20, :order=> 'created_at desc')
+    @textures = Texture.find(:all, :limit => 50, :order=> 'created_at desc')
 
     respond_to do |format|
       format.html # index.html.erb

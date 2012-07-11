@@ -165,10 +165,17 @@ $blue: rgb(0,0,200);
   width: 400px;
   float: left;
   margin-top: 40px;
+  margin-bottom: 35px;
 }
 
 #available-artwork {
+  position: relative;
+  overflow: hidden;
+}
+#texture-picker {
+  width: 275px;
   height: 150px;
+  float: right;
   overflow-y: scroll;
 }
 
@@ -184,6 +191,17 @@ $blue: rgb(0,0,200);
 
 .selected-texture {
   background: black;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 10px;
+  top: 3px;
+}
+
+#edit-button {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
 }
 
 #available-designs{
@@ -276,6 +294,60 @@ $blue: rgb(0,0,200);
 }
 .design-info p{
   margin-top: 20px;
+}
+
+.close-button {
+  position: absolute;
+  top: -10px;
+  right: 5px;
+  font-size: 28px;
+}
+
+.active-tab {
+  padding-bottom: 10px;
+}
+
+#editor {
+  padding: 15px;
+  border: 5px solid rgb(150,150,150);
+  background: $blush;
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  height: 560px;
+  width: 266px;
+  
+  z-index: 3;
+}
+#editor span{
+  color: rgb(150,150,150);
+}
+
+#canvas-container {
+  position: relative;
+  top: -3px;
+  left: 0px;
+  //border: 1px solid rgb(150,150,150);
+  width: 256px;
+  height: 256px;
+  border: 5px solid black;
+}
+
+#editor canvas {
+  cursor: move;
+  position: absolute;
+  top:0px;
+  left: 0px;
+  @include scale(.5);
+}
+#editor canvas:active {
+  cursor: move;
+}
+#front-texture {
+  z-index: 5;
+}
+#back-texture {
+  z-index: 4;
 }
 
 #drawing {

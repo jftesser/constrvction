@@ -172,6 +172,7 @@
 
       style_id = $('.style .selected').data('form-id');
       
+      $($('.texture-option')[0]).addClass('selected-texture');
       texture_file = $($('.texture-option')[0]).data('img');
       texture_id = $($('.texture-option')[0]).data('texture-id');
       
@@ -335,7 +336,6 @@
         <a class="button" id="upload-image-button" style="display:none;"> Upload Image </a>
         
       <% end %>
-      <a class="button" id="edit-button" > Edit </a>
       
     <div id="available-artwork">
       <div id="texture-picker">
@@ -343,6 +343,7 @@
           <%= image_tag texture.image.url(:thumb), :'data-texture-id' => texture.id, :'data-img' => texture.image.url(:v512), :class=>"texture-option" %>
       <% end %>
       </div>
+      <a class="button" id="edit-button" > Edit </a>
     </div>
   </div>
   
@@ -372,14 +373,15 @@
   </div>
   
   <div id="editor">
-    <a class="close-button">close</a>
-    <a class="button" id="toggle-front">front</a>
+    <span><a class="close-button">x</a></span>
+    <a class="button active-tab" id="toggle-front">front</a>
     <a class="button" id="toggle-back">back</a>
-    <span>drag to position image</span>
+    
     <div id="canvas-container">
       <canvas id="front-texture" width=512 height=512></canvas>
       <canvas id="back-texture" width=512 height=512></canvas>
     </div>
+    <span>drag to position image</span>
   </div>
   
   <div id="available-designs">
@@ -397,41 +399,7 @@
 
 
 <style>
-.close-button {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-}
 
-#editor {
-  padding: 5px;
-  border: 5px solid black;
-  background: white;
-  position: absolute;
-  top: 10px;
-  right: 50px;
-  height: 560px;
-  width: 542px;
-  
-  z-index: 3;
-}
-
-#editor canvas {
-  border: 1px solid rgb(150,150,150);
-  cursor: move;
-  position: absolute;
-  top: 40px;
-  left: 20px;
-}
-#editor canvas:active {
-  cursor: move;
-}
-#front-texture {
-  z-index: 5;
-}
-#back-texture {
-  z-index: 4;
-}
 </style>
 
 <!--  
