@@ -56,12 +56,25 @@ class DesignsController < ApplicationController
     @design.user = current_user
     
     temp_file_name = Rails.root.join('tmp', "preview#{@design.texture_id}.png")
+    temp_front_file_name = Rails.root.join('tmp', "front_texture_#{@design.texture_id}.png")
+    temp_back_file_name = Rails.root.join('tmp', "back_texture_#{@design.texture_id}.png")
+    
     
     File.open(temp_file_name, 'wb') do |f|
       f.write Base64.decode64 @design.image_data.gsub(/^data:image\/(png|jpg)\;base64,/, "")
     end
     
+    File.open(temp_front_file_name, 'wb') do |f|
+      f.write Base64.decode64 @design.front_texture_data.gsub(/^data:image\/(png|jpg)\;base64,/, "")
+    end
+    
+    File.open(temp_back_file_name, 'wb') do |f|
+      f.write Base64.decode64 @design.back_texture_data.gsub(/^data:image\/(png|jpg)\;base64,/, "")
+    end
+    
     @design.preview = File.open(temp_file_name)
+    @design.front_texture = File.open(temp_front_file_name)
+    @design.back_texture = File.open(temp_back_file_name)
 
     respond_to do |format|
       if @design.save

@@ -109,6 +109,19 @@
           $('#design-preview').val(designrender);
           $('#design-texture').val(texture_id);
           $('#design-form').val(style_id);
+          
+          var frontimg = front_canvas.toDataURL("image/png");
+          var backimg = back_canvas.toDataURL("image/png");
+          $('#design-front-texture').val(frontimg);
+          $('#design-back-texture').val(backimg);
+          
+          $('#design-front-x').val(-1*front_x/front_image.width);
+          $('#design-front-y').val(-1*front_y/front_image.height);
+          $('#design-back-x').val(-1*back_x/front_image.width);
+          $('#design-back-y').val(-1*back_y/front_image.height);
+          
+          $("#new_design").submit();
+          
           var designdiv = document.createElement('div');
           designdiv.setAttribute('class', 'recent-design-group');
           var newdesign = document.createElement("img");  
@@ -121,8 +134,7 @@
           newdesign.setAttribute('data-form-id', style_id);
           designdiv.appendChild(newdesign);
           $("#my-closet").prepend(designdiv);
-        
-          $("#new_design").submit();
+
         
         },100);
       });
@@ -316,6 +328,12 @@
     <%= f.hidden_field :texture_id, :id => 'design-texture' %>
     <%= f.hidden_field :form_id, :id => 'design-form' %>
     <%= f.hidden_field :image_data, :id => 'design-preview' %>
+    <%= f.hidden_field :front_texture_data, :id => 'design-front-texture' %>
+    <%= f.hidden_field :back_texture_data, :id => 'design-back-texture' %>
+    <%= f.text_field :front_texture_x, :id => 'design-front-x' %>
+    <%= f.text_field :front_texture_y, :id => 'design-front-y' %>
+    <%= f.text_field :back_texture_x, :id => 'design-back-x' %>
+    <%= f.text_field :back_texture_y, :id => 'design-back-y' %>
     <!--
     <%= f.submit 'Save this design!', :id => 'save-button', :style => 'display:none' %>
     -->
@@ -369,7 +387,7 @@
   position: absolute;
   top: 10px;
   right: 50px;
-  height: 550px;
+  height: 560px;
   width: 542px;
   
   z-index: 3;
@@ -379,7 +397,7 @@
   border: 1px solid rgb(150,150,150);
   cursor: move;
   position: absolute;
-  top: 30px;
+  top: 40px;
   left: 20px;
 }
 #editor canvas:active {
