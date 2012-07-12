@@ -11,10 +11,13 @@
     var front_image = new Image();
     var front_ctx, back_ctx;
     var front_canvas, back_canvas;
+    var image_canvas, image_ctx;
+    var filter_canvas, filter_ctx, imgData;
     
     function changeTexture(img){
     	front_image.src = img;
-
+      resetPixel();
+      
     	front_x = 0;
       front_y = 0;
       back_x = 0;
@@ -165,6 +168,7 @@
         $('#new_texture').submit();
       });
       
+      $('.recent-design-group').first().css('margin-left', '215px');
       
       $('.style img').first().addClass('selected');
       front_mesh = $('.style .selected').data('mesh-front');
@@ -181,18 +185,36 @@
       changeTexture(texture_file);
       
       front_image.onload = function() {
+        
         fillWhite(front_canvas)
         fillWhite(back_canvas)
-        front_ctx.drawImage(front_image, front_x,front_y);
-        back_ctx.drawImage(front_image, back_x,back_y);
+        
+        image_canvas.width = front_image.width;
+        image_canvas.height = front_image.height;
+        image_ctx.drawImage(front_image, 0,0);
+        
+        filter_canvas.width = front_image.width;
+        filter_canvas.height = front_image.height;
+        imgData=image_ctx.getImageData(0,0,image_canvas.width,image_canvas.height).data;
+        pixelate(front_image, imgData, filter_ctx, 1);
+        
+        front_ctx.drawImage(filter_canvas, front_x,front_y);
+        back_ctx.drawImage(filter_canvas, back_x,back_y);
         loadModelCanvas(front, front_canvas);
         loadModelCanvas(back, back_canvas);
+        
+        console.log("image loaded");
       }
       
+
+      image_canvas = document.getElementById("image-holder");
+      image_ctx = image_canvas.getContext('2d');
       front_canvas = document.getElementById('front-texture')
       front_ctx = front_canvas.getContext('2d');
       back_canvas = document.getElementById('back-texture')
       back_ctx = back_canvas.getContext('2d');
+      filter_canvas = document.getElementById('filtered');
+      filter_ctx = filter_canvas.getContext('2d');
       
       edit_dx = getPositionLeft(front_canvas) - 5;
   		edit_dy = getPositionTop(front_canvas) - 5;
@@ -229,7 +251,8 @@
 
       		front_ctx.clearRect(0,0,front_canvas.width, front_canvas.height);
       		fillWhite(front_canvas);
-      		front_ctx.drawImage(front_image, front_x,front_y);
+      		//front_ctx.drawImage(front_image, front_x,front_y);
+      		front_ctx.drawImage(filter_canvas, front_x,front_y);
       		
       		loadModelCanvas(front, front_canvas);
         }
@@ -263,7 +286,7 @@
 
       		back_ctx.clearRect(0,0,back_canvas.width, back_canvas.height);
       		fillWhite(back_canvas);
-      		back_ctx.drawImage(front_image, back_x,back_y);
+      		back_ctx.drawImage(filter_canvas, back_x,back_y);
       		
       		loadModelCanvas(back, back_canvas);
         }
@@ -292,8 +315,58 @@
         $('#back-texture').css('z-index', 5);
       })
       
+      $( "#pixel-slider" ).slider({
+      			value:1,
+      			min: 1,
+      			max: 50,
+      			step: 1,
+      			slide: function( event, ui ) {
+      			  if ($('input[name=filter]:checked').val()!='halftone') {
+      			    pixelate(front_image, imgData, filter_ctx, ui.value);
+    			    } else {
+    			      halftone(front_image, imgData, filter_ctx, ui.value);
+    			    }
+    			    
+      				refreshFront();
+      				refreshBack();
+      			},
+      			change: function( event, ui ) {
+      			  if ($('input[name=filter]:checked').val()!='halftone') {
+      			    pixelate(front_image, imgData, filter_ctx, ui.value);
+    			    } else {
+    			      halftone(front_image, imgData, filter_ctx, ui.value);
+    			    }
+      				refreshFront();
+      				refreshBack();
+      			}
+      		});
+      		
+      		$('input[name=filter]').change( function(){
+      		  var mode = $('input[name=filter]:checked').val();
+      		  console.log(mode);
+      		  if (mode == 'none') {
+      		    $("#pixel-slider").slider('value', 0);
+    		    } 
+    		    if (mode=='pixelate') {
+    		      $("#pixel-slider").slider('value', 10);
+    		    }
+      		})
+      
     });
     
+    function refreshFront() {
+      front_ctx.clearRect(0,0,front_canvas.width, front_canvas.height);
+  		fillWhite(front_canvas);
+  		front_ctx.drawImage(filter_canvas, front_x,front_y);
+  		loadModelCanvas(front, front_canvas);
+    }
+    
+    function refreshBack(){
+      back_ctx.clearRect(0,0,back_canvas.width, back_canvas.height);
+  		fillWhite(back_canvas);
+  		back_ctx.drawImage(filter_canvas, back_x,back_y);
+  		loadModelCanvas(back, back_canvas);
+    }
     
     var edit_dx=0, edit_dy=0, edit_x=0, edit_y=0, edit_px=0, edit_py=0;
     var front_x=0, front_y=0, back_x=0, back_y=0;
@@ -306,6 +379,49 @@
   		ctx.fillStyle = 'white';
       ctx.fill();
     }
+    
+    function pixelate(img, data, ctx, pixel){
+      //console.log("pixelating");
+      ctx.beginPath();
+      for (var y=pixel; y<img.height; y+=pixel) {
+        for (var x=pixel; x<img.width; x+=pixel) {
+          var i = ((img.width * y) + x) * 4;
+          var r = data[i];
+          var g = data[i+1];
+          var b = data[i+2];
+          ctx.fillRect(x-pixel, y-pixel, pixel, pixel);
+          ctx.fill();  
+          var color ="rgb("+r+","+g+","+b+")";
+          filter_ctx.fillStyle = "rgb("+r+","+g+","+b+")";  
+        }
+      }
+    }
+    
+    function halftone(img, data, ctx, pixel){
+      console.log("halftone");
+      ctx.beginPath();
+      for (var y=pixel; y<img.height; y+=pixel) {
+        for (var x=pixel; x<img.width; x+=pixel) {
+          var i = ((img.width * y) + x) * 4;
+          var r = data[i];
+          var g = data[i+1];
+          var b = data[i+2];
+          circle(ctx, x, y-(pixel/2), pixel/2);
+          ctx.fill();  
+          var color ="rgb("+r+","+g+","+b+")";
+          filter_ctx.fillStyle = "rgb("+r+","+g+","+b+")";  
+        }
+      }
+    }
+    
+   function resetPixel() {
+     $("#pixel-slider").slider('value', 0);
+   }
+   
+   function circle(ctx, x, y, radius) {
+     ctx.moveTo(x,y);
+     ctx.arc(x,y,radius,0,2*Math.PI, true);  
+   }
    
   </script>
 <% end %>
@@ -363,9 +479,7 @@
     <%= f.hidden_field :front_texture_y, :id => 'design-front-y' %>
     <%= f.hidden_field :back_texture_x, :id => 'design-back-x' %>
     <%= f.hidden_field :back_texture_y, :id => 'design-back-y' %>
-    <!--
-    <%= f.submit 'Save this design!', :id => 'save-button', :style => 'display:none' %>
-    -->
+
     <a id="save-button"><span class="circle"></span> Save Your Look </a>
     
     <div id="design-title-block">
@@ -377,7 +491,7 @@
   
   </div>
   
-  <div id="editor">
+  <div id="editor" style="display: none;">
     <a class="close-button">x</a>
     <a class="button active-tab" id="toggle-front">front</a>
     <a class="button" id="toggle-back">back</a>
@@ -387,10 +501,22 @@
       <canvas id="back-texture" width=512 height=512></canvas>
     </div>
     <span>drag to position image</span>
+   
+    <h3 class="section-heading" style="margin-top: 30px;">FILTER</h3>
+    <input type="radio"  name="filter" value="none" checked/> none
+    <input type="radio"  name="filter" value="pixelate"/> pixelate
+    <!--
+    <input type="radio"  name="filter" value="halftone"/> halftone
+    -->
+    <br />
+    <div id="pixel-slider" style="margin-top: 15px; margin-left: 6px; margin-bottom: 5px; width: 200px;"></div>
+    <span>filter amount</span>
   </div>
+  <canvas id="image-holder" style="display: none;"> </canvas>
+  <canvas id="filtered" width=512 height=512 style="display: none;"></canvas>
   
-  <div id="available-designs">
-    <div class="triangle-box" style="margin-top: -120px; opacity: .6;"><span class="triangle-black"></span><h3 style="font-size: 17px;">Newest Constrvcts</h3></div>
+  <div id="available-designs" style="margin-top: -120px;">
+    <div class="triangle-box" style=" opacity: .6;"><span class="triangle-black"></span><h3 style="font-size: 17px;">Newest Constrvcts</h3></div>
     
   <div id="recent-designs">
   <% @designs.each do |design| %>
