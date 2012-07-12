@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120711005020) do
+ActiveRecord::Schema.define(:version => 20120712154607) do
 
   create_table "admins", :force => true do |t|
     t.string   "username"
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(:version => 20120711005020) do
     t.float    "front_texture_y"
     t.float    "back_texture_x"
     t.float    "back_texture_y"
+    t.string   "filter_name"
+    t.string   "filter_params"
   end
 
   add_index "designs", ["form_id"], :name => "index_designs_on_form_id"

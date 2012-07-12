@@ -140,6 +140,10 @@
           $('#design-back-x').val(-1*back_x/front_image.width);
           $('#design-back-y').val(-1*back_y/front_image.height);
           
+          $('#filter-name').val($('input[name=filter]:checked').val());
+          var parameters = "filter-size: "+ $("#pixel-slider").slider('value')+ ",";
+          $('#filter-params').val(parameters);
+          
           var designdiv = document.createElement('div');
           designdiv.setAttribute('class', 'recent-design-group');
           var newdesign = document.createElement("img");  
@@ -293,11 +297,12 @@
       }
       
       $('.close-button').click( function(){
-        $(this).parent().hide();
+        //$(this).parent().hide();
+        $(this).parent().slideUp('slow');
       })
       
       $('#edit-button').click( function(){
-        $('#editor').show();
+        $('#editor').slideDown('slow');
       })
       
       $('#toggle-front').click( function(){
@@ -315,7 +320,7 @@
         $('#back-texture').css('z-index', 5);
       })
       
-      $( "#pixel-slider" ).slider({
+        $( "#pixel-slider" ).slider({
       			value:1,
       			min: 1,
       			max: 50,
@@ -339,16 +344,19 @@
       				refreshFront();
       				refreshBack();
       			}
-      		});
+        });
       		
       		$('input[name=filter]').change( function(){
       		  var mode = $('input[name=filter]:checked').val();
       		  console.log(mode);
       		  if (mode == 'none') {
+      		    $('#pixel-slider').hide();
       		    $("#pixel-slider").slider('value', 0);
+      		    
     		    } 
     		    if (mode=='pixelate') {
     		      $("#pixel-slider").slider('value', 10);
+    		      $('#pixel-slider').slideDown('fast');
     		    }
       		})
       
@@ -479,6 +487,9 @@
     <%= f.hidden_field :front_texture_y, :id => 'design-front-y' %>
     <%= f.hidden_field :back_texture_x, :id => 'design-back-x' %>
     <%= f.hidden_field :back_texture_y, :id => 'design-back-y' %>
+    
+    <%= f.hidden_field :filter_name, :id => 'filter-name' %>
+    <%= f.hidden_field :filter_params, :id => 'filter-params' %>
 
     <a id="save-button"><span class="circle"></span> Save Your Look </a>
     
@@ -509,13 +520,13 @@
     <input type="radio"  name="filter" value="halftone"/> halftone
     -->
     <br />
-    <div id="pixel-slider" style="margin-top: 15px; margin-left: 6px; margin-bottom: 5px; width: 200px;"></div>
+    <div id="pixel-slider" style="display: none; margin-top: 15px; margin-left: 6px; margin-bottom: 5px; width: 200px;"></div>
     <span>filter amount</span>
   </div>
   <canvas id="image-holder" style="display: none;"> </canvas>
   <canvas id="filtered" width=512 height=512 style="display: none;"></canvas>
   
-  <div id="available-designs" style="margin-top: -120px;">
+  <div id="available-designs" style="margin-top: -100px;">
     <div class="triangle-box" style=" opacity: .6;"><span class="triangle-black"></span><h3 style="font-size: 17px;">Newest Constrvcts</h3></div>
     
   <div id="recent-designs">

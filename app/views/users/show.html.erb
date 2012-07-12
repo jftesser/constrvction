@@ -31,6 +31,17 @@
 
       </div>
   <% end %>
+  
+  <% @user.textures.each do |texture| %>
+    <div class='design-unit'>
+      
+      <%= image_tag texture.image.url(:thumb) %>
+      <%= link_to texture.name, texture %>
+      <%= link_to 'Edit', edit_texture_path(texture) %>
+      <%= link_to 'Destroy', texture, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+    </div>
+  <% end %>
+  
   </div>
   
   <% if current_admin %>
