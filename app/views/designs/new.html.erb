@@ -35,6 +35,10 @@
     	
     	scene.add(front);
     	scene.add(back);
+    	
+    	setTimeout(function(){$("#loading").hide()},500);
+    	
+    	
     }
     
     function update_texture(file) {
@@ -74,6 +78,7 @@
       })
       
       $('.style img').click(function() {
+        $("#loading").show();
         $('.style .selected').removeClass('selected');
         $(this).addClass('selected');
         
