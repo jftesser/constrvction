@@ -11,12 +11,12 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :avatar, :avatar_file_name, :password, :remember_me, :invite_code
-  attr_accessor :invite_code
+
   # attr_accessible :title, :body
   
   validates_each :invite_code, :on => :create do |record, attr, value|
       record.errors.add attr, "required for Priority Access" unless
-        value && value == "MASHABLE34" || value == "KICKSTARTER56" || value == "CONSTRVCTIT"
+        value && value == "MASHABLE34" || value == "KICKSTARTER56" || value == "CONSTRVCTIT" || value == "MICROPHONE"
   end
   
   validates_presence_of :username
