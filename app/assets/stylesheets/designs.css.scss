@@ -272,7 +272,7 @@ $blue: rgb(0,0,200);
 }
 
 #my-closet {
-  height: 800px;
+  height: 550px;
   width: 120px;
   float: left;
   overflow: hidden;
@@ -323,6 +323,11 @@ $blue: rgb(0,0,200);
   font-size: 22px;
   padding-bottom: 10px;
 }
+.design-info {
+  margin-top: 50px;
+  float: left;
+}
+
 .design-info p{
   margin-top: 20px;
 }
@@ -380,6 +385,11 @@ $blue: rgb(0,0,200);
 }
 #back-texture {
   z-index: 4;
+}
+
+#designs-info {
+  margin-top: 50px;
+  float: left;
 }
 
 #drawing {

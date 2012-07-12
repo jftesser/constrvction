@@ -85,6 +85,29 @@ function loadModelCanvas(object, canvas){
 	}
 }
 
+function loadModelImg(obj, path, img){
+	var loader = new THREE.OBJLoader();
+	//var obj = new THREE.Object3D();
+	var tex = THREE.ImageUtils.loadTexture(img);
+	
+	loader.load(path, function(object) {
+
+		for(var i = 0, l = object.children.length; i < l; i++) {
+
+			object.children[i].material.map = tex;
+			object.children[i].material.alphaTest = 0.5;
+			//console.log(object.children[i].material);
+			object.children[i].doubleSided = true;
+		}
+
+		object.position.y = 0;
+		object.scale.set(6.5, 6.5, 6.5);
+
+		obj.add(object);
+		//console.log(object);
+	});
+}
+
 function refresh(model, img) {
 	var d = document.getElementById('render-container');
 	var c = document.getElementById('GL');
@@ -195,6 +218,7 @@ function init3DBuild(obj1, obj2, img){
 		
 		renderw = renderh * ratio;
 	}
+	
 	
 	// RENDERER
 

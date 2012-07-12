@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<div class="grid middle" style="width:800px;">
+<div class="grid middle">
 <div id="render-container">
   
 </div>
@@ -12,20 +12,21 @@
    <%= @design.description %> 
   </p>  
   <p>
+    <%= image_tag @design.front_texture, :width => 100 %>
     <%= image_tag @design.texture.image.url(:thumb), :width => 100 %>
     <%= image_tag @design.form.icon.url(:icon100), :width => 100 %>
   </p>
   <h4><span class="grey">artwork by </span> <%= link_to @design.texture.user.username, user_path(@design.texture.user) %></h4>
   <h4><span class="grey">style: </span> <%= @design.form.name %></h4>
+
+  <% if current_admin %>  
+  <%= link_to 'Edit', edit_design_path(@design) %> 
+  <% end %>
 </div>
 
-<% if current_admin %>  
-<%= link_to 'Edit', edit_design_path(@design) %> |
-<%= link_to 'Back', designs_path %>
-<% end %>
 </div>
 
-<div class="grid middle" style="width:800px;">
+<div class="grid middle">
   <h3 class="underline">also by <%= link_to @design.user.username, user_path(@design.user) %></h3>
   <% @design.user.designs.each do |userdesign| %>
     <% if userdesign.id != @design.id %>
@@ -47,7 +48,102 @@
   
   <script type="text/javascript">
     $(function() {
-      init3DBuild('<%= @design.form.front_mesh.url %>','<%= @design.form.back_mesh.url %>', '<%= @design.texture.image.url(:v512) %>');
+      init3D('<%= @design.form.front_mesh.url %>','<%= @design.form.back_mesh.url %>', '<%= @design.front_texture %>', '<%= @design.back_texture %>');
     });
+    
+    function init3D(obj1, obj2, img1, img2){
+    	mouseIsOver = false;
+
+    	container = document.getElementById("render-container");
+
+    	scene = new THREE.Scene();
+    	savescene = new THREE.Scene();
+
+    	camera = new THREE.PerspectiveCamera(45, renderw / renderh, 1, 2000);
+    	camera.position.z = 120;
+    	scene.add(camera);
+
+    	var ambient = new THREE.AmbientLight(0x0C0C0C);
+    	scene.add(ambient);
+
+    	var directionalLight = new THREE.DirectionalLight(0xD6D6D6);
+    	directionalLight.position.set(70, 70, 100);
+    	//.normalize();
+    	scene.add(directionalLight);
+
+    	var directionalLight2 = new THREE.DirectionalLight(0xD6D6D6);
+    	directionalLight2.position.set(-70, 70, 100);
+    	//.normalize();
+    	scene.add(directionalLight2);
+
+
+    	front = new THREE.Object3D();
+    	back = new THREE.Object3D();
+    	console.log(img1);
+    	loadModelImg(front, obj1, img1);
+    	loadModelImg(back, obj2, img2);
+
+    	scene.add(front);
+    	scene.add(back);
+
+    	var windowsize=viewport();
+    	var ratio = renderw/renderh;
+    	if (windowsize.height> renderh){
+    		console.log(windowsize.height);
+    		var h = windowsize.height;
+    		if (h > 850) {
+    			renderh = 850;
+    		} else {
+    			renderh = windowsize.height;
+    		}
+
+    		renderw = renderh * ratio;
+    	}
+    	$("#render-container").css('height', renderh);
+    	$("#render-container").css('width', renderw);
+
+    	// RENDERER
+
+    	renderer = new THREE.WebGLRenderer( { antialias: true, preserveDrawingBuffer : true } );
+    	renderer.setSize(renderw, renderh);
+    	renderer.domElement.id = "GL";
+    	container.appendChild(renderer.domElement);
+
+    	animate();
+    	//saverenderer.render(savescene, camera);
+
+    	container.onmousemove = function(event) {
+
+    		dx = getPositionLeft(document.getElementById("render-container")) - 5;
+    		dy = getPositionTop(document.getElementById("render-container")) - 5;
+
+    		pmousex = mousex;
+    		pmousey = mousey;
+
+    		mousex = event.pageX - dx;
+    		mousey = event.pageY - dy;
+    		ease = 0.9;
+    		yang = ((mousex / (renderw * 1.0) - 0.5) * Math.PI * 2.0)*(1.0-ease)+front.rotation.y*ease;
+    		xang = ((mousey / (renderh * 1.0) - 0.5) * Math.PI * 0.3)*(1.0-ease)+front.rotation.x*ease;
+
+    		front.rotation.x = xang;
+    		front.rotation.y = yang;
+    		back.rotation.x = xang;
+    		back.rotation.y = yang;
+
+    		$("#GL").css('z-index',10);
+
+    	}
+
+    	container.onmouseover = function(event) {
+    		mouseIsOver = true;
+    	}
+
+    	container.onmouseout = function(event) {
+    		mouseIsOver = false;
+    	}
+    }
+    
+    
   </script>
 <% end %>

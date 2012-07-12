@@ -179,7 +179,8 @@
         $('#new_texture').submit();
       });
       
-      $('.recent-design-group').first().css('margin-left', '215px');
+      //$('.recent-design-group').first().css('margin-left', '215px');
+      $('.grid-design-group').first().css('margin-left', '215px');
       
       $('.style img').first().addClass('selected');
       front_mesh = $('.style .selected').data('mesh-front');
@@ -194,6 +195,8 @@
       init3DBuild(front_mesh, back_mesh, texture_file);
       $('#design-form').val(style_id);
       changeTexture(texture_file);
+      $("#render-container").css('height', renderh);
+    	$("#render-container").css('width', renderw);
       
       front_image.onload = function() {
         
@@ -544,17 +547,31 @@
   <canvas id="image-holder" style="display: none;"> </canvas>
   <canvas id="filtered" width=512 height=512 style="display: none;"></canvas>
   
-  <div id="available-designs" style="margin-top: -100px;">
+
+<div id="available-designs" style="margin-top: -100px;">
+    
     <div class="triangle-box" style=" opacity: .6;"><span class="triangle-black"></span><h3 style="font-size: 17px;">Newest Constrvcts</h3></div>
     
-  <div id="recent-designs">
-  <% @designs.each do |design| %>
+    <div id="recent-designs">
+    <% @designs.each do |design| %>
+    <div class='grid-design-group'>
+      <div class="design-unit">
+      <%= link_to design do %>
+        <%= image_tag design.preview.url(:thumb200) %>
+      <% end %>
+  
+  <!--
     <div class="recent-design-group">
      <%= image_tag design.preview.url(:thumb200), :class =>'recent-design', :'data-mesh-front' => design.form.front_mesh.url, :'data-mesh-back' => design.form.back_mesh.url, :'data-form-id' => design.form.id, :'data-texture-file' => design.texture.image.url(:v512), :'data-texture-id' => design.texture.id, :'data-front-texture' => design.front_texture, :'data-back-texture' => design.back_texture, :'data-frontx' => design.front_texture_x, :'data-fronty' => design.front_texture_y, :'data-backx' => design.back_texture_x, :'data-backy' => design.back_texture_y %>
+     -->
       <span>by <%= link_to design.user.username, design.user %></span>
     </div>  
+    </div>
   <% end %>
+   <div class="triangle-box" style="display: inline-block; position: relative; left:0px; top: -345px;"><a href="/designs"><span class="triangle-black"></span><h3 style="font-size: 17px;">All Constrvcts</h3></a></div>
+  
   </div>
+  
   </div>
 </div>
 

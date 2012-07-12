@@ -29,12 +29,14 @@
   </div>
 
   <div class="col2">
-  <div><%= f.label :current_password %> <br /><i>(to confirm your changes)</i><br />
+  <div><%= f.label :current_password %> <br /><i>(confirm changes)</i><br />
   <%= f.password_field :current_password %></div>
 
   <%= devise_error_messages! %>
-  <div><%= f.submit "Update" %></div>
+  
+  <a class="button submit-button" style="margin-top: 15px;">Update</a>
   </div>
+  
 <% end %>
 
 <!--
@@ -42,6 +44,12 @@
 -->
 </div>
 <script>
+
+$('.submit-button').click(function() {
+  $(this).parent().parent().submit();
+})
+
+
 var charList = [' ',':', '/', '\\', '&', ';', '+', '=','!', '?', '<', '>', '|', '(', ')', '[', ']', '{', '}', '&', '@', '$', '^', "'", '"', ",", '.', '~', '`', '*', '%', '#' ]; // etc...
 
 function sanitize(el, input) {
