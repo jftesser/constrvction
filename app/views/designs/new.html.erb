@@ -500,6 +500,10 @@
       
     <div id="available-artwork">
       <div id="texture-picker">
+        <% @user.textures.each do |texture| %>
+            <%= image_tag texture.image.url(:thumb), :'data-texture-id' => texture.id, :'data-img' => texture.image.url(:v512), :class=>"texture-option" %>
+        <% end %>
+        
       <% @textures.each do |texture| %>
           <%= image_tag texture.image.url(:thumb), :'data-texture-id' => texture.id, :'data-img' => texture.image.url(:v512), :class=>"texture-option" %>
       <% end %>

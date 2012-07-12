@@ -34,6 +34,7 @@ class DesignsController < ApplicationController
   # GET /designs/new.json
   def new
     #@textures = Texture.find(:all, :limit => 21, :order=> 'created_at desc')
+    @user = current_user
     @textures = Texture.find(:all, :conditions => ['user_id=?', 11], :limit => 21, :order=> 'created_at desc')
     @designs = Design.find(:all, :limit => 20, :order=> 'created_at desc')
     
