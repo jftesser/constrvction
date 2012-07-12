@@ -133,6 +133,8 @@
       $('#save-button').click(function() {
         front.rotation.y = 0;
         back.rotation.y = 0;
+        front.rotation.x =0;
+        back.rotation.x =0;
         setTimeout(function() {
            
           var designrender = $('#GL')[0].toDataURL("image/png");
