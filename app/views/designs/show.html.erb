@@ -12,7 +12,7 @@
    <%= @design.description %> 
   </p>  
   <p>
-    <% if @design.front_texture %> 
+    <% if !@design.front_texture.blank? %> 
     <%= image_tag @design.front_texture, :width => 100 %>
     <% end %>
     <%= image_tag @design.texture.image.url(:thumb), :width => 100 %>
@@ -50,7 +50,7 @@
   
   <script type="text/javascript">
     $(function() {
-      <% if @design.front_texture %> 
+      <% if !@design.front_texture.blank? %> 
       init3D('<%= @design.form.front_mesh.url %>','<%= @design.form.back_mesh.url %>', '<%= @design.front_texture %>', '<%= @design.back_texture %>');
       <% else %>
       init3D('<%= @design.form.front_mesh.url %>','<%= @design.form.back_mesh.url %>', '<%= @design.texture.image.url(:v512) %>', '<%= @design.texture.image.url(:v512) %>');
