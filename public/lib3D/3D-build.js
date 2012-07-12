@@ -13,7 +13,7 @@ var renderh = 650;
 var mousex, mousey, pmousex, pmousey, dx, dy;
 var texture;
 var canvastexture = false;
-
+var drift = true;
 
 function loadthis(model) {
 	var loader = new THREE.OBJLoader();
@@ -147,7 +147,7 @@ function animate() {
 }
 
 function render() {
-	if (mouseIsOver == false) {
+	if (mouseIsOver == false && drift == true) {
 		xang = front.rotation.x*0.99;
 		yang = front.rotation.y*0.99;
 

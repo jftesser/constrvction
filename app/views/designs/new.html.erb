@@ -315,15 +315,19 @@
       $('.close-button').click( function(){
         //$(this).parent().hide();
         $(this).parent().slideUp('slow');
+        drift = true;
       })
       
       $('#edit-button').click( function(){
         $('#editor').slideDown('slow');
+        drift = false;
       })
       
       $('#toggle-front').click( function(){
         $('.active-tab').removeClass('active-tab');
         $(this).addClass('active-tab');
+        front.rotation.y = 0;
+        back.rotation.y = 0;
         
         $('#front-texture').css('z-index', 5);
         $('#back-texture').css('z-index', 4);
@@ -331,6 +335,8 @@
       $('#toggle-back').click( function(){
         $('.active-tab').removeClass('active-tab');
         $(this).addClass('active-tab');
+        front.rotation.y = Math.PI;
+        back.rotation.y = Math.PI;
         
         $('#front-texture').css('z-index', 4);
         $('#back-texture').css('z-index', 5);

@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   
   validates_each :invite_code, :on => :create do |record, attr, value|
       record.errors.add attr, "required for Priority Access" unless
-        value && value == "MASHABLE34" || value == "KICKSTARTER56" || value == "CONSTRVCTIT" || value == "MICROPHONE"
+        value && value == "MASHABLE34" || value == "KICKSTARTER56" || value == "CONSTRVCTIT" || value == "MICROPHONE" || value == "KICKSTARTER11" 
   end
   
   validates_presence_of :username
