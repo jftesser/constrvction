@@ -208,6 +208,10 @@ $blue: rgb(0,0,200);
   position: absolute;
   left: 10px;
   top: 3px;
+  background-image:url('img-loader.gif');
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-position:center center;
 }
 
 #edit-button {
@@ -383,4 +387,14 @@ $blue: rgb(0,0,200);
  position: absolute;
  top: 70px;
  right:-500px;
+}
+
+#spin {
+  position: absolute;
+  left: 130px;
+  top: 140px;
+  background: white;
+  opacity: .6;
+  border-radius: 74px;
+  padding: 8px;
 }

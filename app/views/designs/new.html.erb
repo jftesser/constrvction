@@ -58,6 +58,8 @@
         if ($("#texture_image").val() != "") {
           $('#new_texture span').html($("#texture_image").val());
           console.log('uploading texture');
+          $("#loading").show();
+          
           $('#new_texture').submit();
         } else {
           $('#new_texture span').html('Use your own photo or image');
@@ -66,6 +68,8 @@
       
       $("#upload-button").click(function(){
         console.log('upload clicked');
+        $("#loading").show();
+        
         $("#texture_image").click();
       })
       
@@ -81,6 +85,8 @@
       });
       
       $('.texture-option').live('click', function() {
+        $("#loading").show();
+        
         $('.selected-texture').removeClass('selected-texture');
         $(this).addClass('selected-texture');
         texture_file = $(this).data('img');
@@ -168,7 +174,8 @@
       });
       
       $('#upload-image-button').click(function(){
-        console.log('uploading texture');
+        $("#loading").show();
+        //console.log('uploading texture');
         $('#new_texture').submit();
       });
       
@@ -207,7 +214,8 @@
         loadModelCanvas(front, front_canvas);
         loadModelCanvas(back, back_canvas);
         
-        console.log("image loaded");
+        console.log("image load complete");
+        $("#loading").hide();
       }
       
 
@@ -442,6 +450,16 @@
   <div id="main-design">
     <div id="render-container">
     </div>
+    <!--
+    <div id="spin" style="display: none;">
+      <%= image_tag "loading.gif" %>
+    </div>
+    -->
+    <div id="loading">
+      <strong>LOADING</strong>
+    <span></span>
+    </div>
+    
   </div>
   
 <div style="width: 420px; height:800px; float: left;position:relative; margin-left: 100px;">  
