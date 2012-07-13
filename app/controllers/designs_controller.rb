@@ -1,5 +1,5 @@
 class DesignsController < ApplicationController
-  skip_before_filter :authenticate_user!, :only => [:index]
+  skip_before_filter :authenticate_user!, :only => [:index, :show]
   before_filter :authenticate_admin!, :only => [:edit, :update]
   
   def constrvct
