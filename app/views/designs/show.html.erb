@@ -13,9 +13,10 @@
   </p>  
   <p>
     <% if !@design.front_texture.blank? %> 
-    <%= image_tag @design.front_texture, :width => 100 %>
+      <%= image_tag @design.front_texture.url(:thumb), :width => 100 %>
+    <% else %>
+      <%= image_tag @design.texture.image.url(:thumb), :width => 100 %>
     <% end %>
-    <%= image_tag @design.texture.image.url(:thumb), :width => 100 %>
     <%= image_tag @design.form.icon.url(:icon100), :width => 100 %>
   </p>
   <h4><span class="grey">artwork by </span> <%= link_to @design.texture.user.username, user_path(@design.texture.user) %></h4>

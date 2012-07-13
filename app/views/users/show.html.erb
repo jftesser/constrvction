@@ -31,14 +31,21 @@
 
       </div>
   <% end %>
+  </div>
   
+  <div class="grid middle">
+    <h2>My Artwork</h2>
   <% @user.textures.each do |texture| %>
+  <div class='grid-design-group' style="width:100px;height:100px;">
     <div class='design-unit'>
       
       <%= image_tag texture.image.url(:thumb) %>
+      <!--
       <%= link_to texture.name, texture %>
       <%= link_to 'Edit', edit_texture_path(texture) %>
       <%= link_to 'Destroy', texture, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+      -->
+    </div>
     </div>
   <% end %>
   
