@@ -35,7 +35,7 @@
     <% if userdesign.id != @design.id %>
       <div class='recent-design-group outline'>
           <%= link_to userdesign do %>
-            <%= image_tag userdesign.preview.url(:thumb) %>
+            <%= image_tag userdesign.preview.url(:thumb200) %>
           <% end %>
       </div>
     <% end %>
