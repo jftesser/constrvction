@@ -147,7 +147,7 @@ function animate() {
 }
 
 function render() {
-	if (mouseIsOver == false && drift == true) {
+	if ( drift == true) {
 		xang = front.rotation.x*0.99;
 		yang = front.rotation.y*0.99;
 
@@ -226,6 +226,7 @@ function init3DBuild(obj1, obj2, img){
 	renderer.setSize(renderw, renderh);
 	renderer.domElement.id = "GL";
 	container.appendChild(renderer.domElement);
+	$("#GL").css('z-index',10);
 	
 	// SAVING RENDERER
 	/*
@@ -237,11 +238,12 @@ function init3DBuild(obj1, obj2, img){
 	animate();
 	//saverenderer.render(savescene, camera);
 
+	dx = getPositionLeft(document.getElementById("render-container")) - 5;
+	dy = getPositionTop(document.getElementById("render-container")) - 5;
+	
 	container.onmousemove = function(event) {
 		
-		dx = getPositionLeft(document.getElementById("render-container")) - 5;
-		dy = getPositionTop(document.getElementById("render-container")) - 5;
-
+		/*
 		pmousex = mousex;
 		pmousey = mousey;
 
@@ -251,13 +253,13 @@ function init3DBuild(obj1, obj2, img){
 		yang = ((mousex / (renderw * 1.0) - 0.5) * Math.PI * 2.0)*(1.0-ease)+front.rotation.y*ease;
 		xang = ((mousey / (renderh * 1.0) - 0.5) * Math.PI * 0.3)*(1.0-ease)+front.rotation.x*ease;
 
-		front.rotation.x = xang;
-		front.rotation.y = yang;
-		back.rotation.x = xang;
-		back.rotation.y = yang;
-
-		$("#GL").css('z-index',10);
-
+	*/
+		//front.rotation.x = xang;
+		//back.rotation.x = xang;
+		
+		//front.rotation.y = yang;
+		//back.rotation.y = yang;
+		
 	}
 	
 	container.onmouseover = function(event) {
