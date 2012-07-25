@@ -18,10 +18,14 @@
           <h5><%= design.title %></h5>  
           </div>
         </div>
+      
+      <% if current_user %>   
+        <%= link_to 'x', design, :method => :delete, :class => 'close-button', :data => { :confirm => 'Are you sure you want to delete this design?' } %>
+      <% end %>
 
       <% if current_admin %>  
         <div class="admin-unit">
-        <%= image_tag design.form.image.url(:thumb) %>
+        <%= image_tag design.form.icon.url(:icon100) %>
         <%= image_tag design.texture.image.url(:thumb) %>
 
         <%= link_to 'Edit', edit_design_path(design) %>

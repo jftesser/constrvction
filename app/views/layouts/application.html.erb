@@ -56,17 +56,19 @@
       <% end %>
     </div>
   
-  <nav id="main-nav" >
-    <!--
-    <%= link_to 'Constrvct A Look', new_design_path %>
-    <%= link_to 'My Closet', current_user %>
-    <%= link_to 'All Constrvcts', designs_path %>
-    -->
-    <nav id="registration">
-        <%= link_to 'Log Out', destroy_user_session_path, :method=>:delete %>  
-    </nav>
-  </nav>
-  </div>
+      <div id="main-nav" >
+    
+        <%= link_to 'My Constrvcts', current_user %>
+        <%= link_to 'Constrvct A Look', new_design_path %>
+        <%= link_to 'All Constrvcts', designs_path %>
+        <br />
+        <br />
+        <div id="registration">
+            <%= link_to 'Log Out', destroy_user_session_path, :style => "margin-top: 30px;", :method=>:delete %>  
+        </div>
+      </div>
+    </div>
+  
   <div id="main-container" style="margin-left: 175px;">   
   <% else %>
   <div id="main-container" >   

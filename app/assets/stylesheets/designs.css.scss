@@ -296,6 +296,7 @@ $blue: rgb(0,0,200);
   border: 1px solid $barely-grey;
   background: $barely-grey;
   margin: 10px;
+  position: relative;
 }
 .grid-design-group:hover {
   border: 1px solid $light-grey;
@@ -306,6 +307,12 @@ $blue: rgb(0,0,200);
 }
 .grid-design-group *{
   font-size: 14px;
+}
+.grid-design-group .close-button {
+  display: none;
+}
+.grid-design-group:hover .close-button {
+  display: inline;
 }
 
 .design-unit {
