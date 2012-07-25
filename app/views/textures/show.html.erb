@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+<div class="grid middle">
 <p>
   <b><%= @texture.name %></b>
 </p>
@@ -7,7 +8,7 @@
 <p>
   <%= image_tag @texture.image.url(:v512) %>
 </p>
-
-
+</div>
+<!--
 <%= link_to 'Edit', edit_texture_path(@texture) %> |
-<%= link_to 'Back', textures_path %>
+-->

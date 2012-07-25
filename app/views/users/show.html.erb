@@ -42,8 +42,9 @@
   <% @user.textures.each do |texture| %>
   <div class='grid-design-group' style="width:100px;height:100px;">
     <div class='design-unit'>
-      
-      <%= image_tag texture.image.url(:thumb) %>
+      <%= link_to texture do %>
+        <%= image_tag texture.image.url(:thumb) %>
+      <% end %>
       <!--
       <%= link_to texture.name, texture %>
       <%= link_to 'Edit', edit_texture_path(texture) %>
