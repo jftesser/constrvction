@@ -324,11 +324,13 @@
         //$(this).parent().hide();
         $(this).parent().slideUp('slow');
         drift = true;
+        $("#rotate-slider").slider('value', 180);
       })
       
       $('#edit-button').click( function(){
         $('#editor').slideDown('slow');
         drift = false;
+     
       })
       
       $('#toggle-front').click( function(){

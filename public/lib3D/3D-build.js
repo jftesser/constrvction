@@ -10,10 +10,10 @@ var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 var renderw = 400;
 var renderh = 650;
-var mousex, mousey, pmousex, pmousey, dx, dy;
+var mousex = 0, mousey= 0, pmousex= 0, pmousey= 0, dx= 0, dy= 0;
 var texture;
 var canvastexture = false;
-var drift = true;
+var drift = false;
 
 function loadthis(model) {
 	var loader = new THREE.OBJLoader();
@@ -241,24 +241,41 @@ function init3DBuild(obj1, obj2, img){
 	dx = getPositionLeft(document.getElementById("render-container")) - 5;
 	dy = getPositionTop(document.getElementById("render-container")) - 5;
 	
+	var yamt = 0, xamt = 0;
 	container.onmousemove = function(event) {
 		
-		/*
+		
+		if (mousePressed){
+			//console.log(mousePressed);
 		pmousex = mousex;
 		pmousey = mousey;
 
 		mousex = event.pageX - dx;
 		mousey = event.pageY - dy;
 		ease = 0.9;
-		yang = ((mousex / (renderw * 1.0) - 0.5) * Math.PI * 2.0)*(1.0-ease)+front.rotation.y*ease;
-		xang = ((mousey / (renderh * 1.0) - 0.5) * Math.PI * 0.3)*(1.0-ease)+front.rotation.x*ease;
-
-	*/
-		//front.rotation.x = xang;
-		//back.rotation.x = xang;
+		//yang = ((mousex / (renderw * 1.0) - 0.5) * Math.PI * 2.0)*(1.0-ease)+front.rotation.y*ease;
+		//xang = ((mousey / (renderh * 1.0) - 0.5) * Math.PI * 0.3)*(1.0-ease)+front.rotation.x*ease;
+		if (mousex-pmousex>0){
+			yamt = .1;
+		} else {
+			yamt = -.1;
+		}
 		
-		//front.rotation.y = yang;
-		//back.rotation.y = yang;
+		if (mousey-pmousey>0){
+			xamt = .02;
+		} else {
+			xamt = -.02;
+		}
+	
+		if (Math.abs(mousey-pmousey) > Math.abs(mousex-pmousex)) {
+			front.rotation.x += xamt;
+			back.rotation.x += xamt;
+		} else {
+			front.rotation.y += yamt;
+			back.rotation.y += yamt;
+		}
+		
+		}
 		
 	}
 	
