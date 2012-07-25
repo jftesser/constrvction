@@ -297,6 +297,9 @@ $blue: rgb(0,0,200);
   background: $barely-grey;
   margin: 10px;
   position: relative;
+    span {
+      color: #969696;
+    }
 }
 .grid-design-group:hover {
   border: 1px solid $light-grey;

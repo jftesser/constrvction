@@ -11,7 +11,8 @@ class DesignsController < ApplicationController
   # GET /designs.json
   def index
     #@designs = Design.all
-    @designs = Design.find(:all, :limit => 20, :order=> 'created_at desc')
+    @designs = Design.find(:all, :limit => 100, :order=> 'created_at desc')
+    
     
     respond_to do |format|
       format.html # index.html.erb
