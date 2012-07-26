@@ -1,6 +1,7 @@
 class FormsController < ApplicationController
   skip_before_filter :authenticate_user!
   before_filter :authenticate_admin!
+  layout "current_user"
   # GET /forms
   # GET /forms.json
   def index

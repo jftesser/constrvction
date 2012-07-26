@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  layout "login"
+  
   def show
     @user = User.find params[:id]
    

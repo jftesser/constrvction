@@ -41,40 +41,10 @@
     </div>
   <% end %>
  
-  <% if current_user %>
-  <div class="sidebar">
-  <span id="logocorner"></span>
-  <a href="/"><h1 id="logotype"></h1></a>
-    <div class="user-nav">
-      
-      <%= link_to edit_user_registration_path(current_user)  do %>   
-        <%= image_tag current_user.avatar.url(:medium), :class => 'profile-circle' %>
-        
-     
-        <span class="username"><%= current_user.username %></span>
-        <span>update profile</span>
-      <% end %>
-    </div>
   
-      <div id="main-nav" >
-    
-        <%= link_to 'My Constrvcts', current_user %>
-        <%= link_to 'Constrvct A Look', new_design_path %>
-        <%= link_to 'All Constrvcts', designs_path %>
-        <br />
-        <br />
-        <div id="registration">
-            <%= link_to 'Log Out', destroy_user_session_path, :style => "margin-top: 30px;", :method=>:delete %>  
-        </div>
-      </div>
-    </div>
   
-  <div id="main-container" style="margin-left: 175px;">   
+
     
-  <% else %>
-   
-    
-  <% end %>
  
  
  

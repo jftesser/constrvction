@@ -1,6 +1,7 @@
 class DesignsController < ApplicationController
   skip_before_filter :authenticate_user!, :only => [:index, :show]
   before_filter :authenticate_admin!, :only => [:edit, :update]
+  layout "current_user"
   
   def constrvct
     @textures = Texture.find(:all, :limit => 21, :order=> 'created_at desc')

@@ -1,5 +1,7 @@
 class TexturesController < ApplicationController
   skip_before_filter :authenticate_user!
+  layout "current_user"
+  
   #before_filter :authenticate_admin!, :only => [:index, :show, :edit, :update]
   # GET /textures
   # GET /textures.json

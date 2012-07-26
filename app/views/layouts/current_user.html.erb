@@ -72,7 +72,19 @@
   <div id="main-container" style="margin-left: 175px;">   
     
   <% else %>
-   
+  <div class="sidebar">
+  <span id="logocorner"></span>
+  <a href="/"><h1 id="logotype"></h1></a>
+  
+      <div id="main-nav" style="margin-top: 200px; margin-right:25px;">
+        <%= link_to 'All Constrvcts', designs_path %>
+        <div id="registration">
+            <%= link_to 'Log In', new_user_registration_path %>  
+        </div>
+      </div>
+  </div>
+  
+  <div id="main-container" style="margin-left: 175px;">   
     
   <% end %>
  
