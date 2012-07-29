@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  layout "login"
+  layout "login", :only => [:create]
   
   def show
+    
     @user = User.find params[:id]
    
   end

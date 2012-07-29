@@ -246,13 +246,12 @@ function init3DBuild(obj1, obj2, img){
 		
 		
 		if (mousePressed){
-			//console.log(mousePressed);
-		pmousex = mousex;
-		pmousey = mousey;
+			pmousex = mousex;
+			pmousey = mousey;
 
-		mousex = event.pageX - dx;
-		mousey = event.pageY - dy;
-		ease = 0.9;
+			mousex = event.pageX - dx;
+			mousey = event.pageY - dy;
+			ease = 0.9;
 		//yang = ((mousex / (renderw * 1.0) - 0.5) * Math.PI * 2.0)*(1.0-ease)+front.rotation.y*ease;
 		//xang = ((mousey / (renderh * 1.0) - 0.5) * Math.PI * 0.3)*(1.0-ease)+front.rotation.x*ease;
 		if (mousex-pmousex>0){
