@@ -171,6 +171,14 @@ $blue: rgb(0,0,200);
   margin-bottom: 5px;
   padding: 10px;
   background-color: $light-yellow;
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 300px;
+    height: 18px;
+    display: inline-block;
+  }
 }
 
 #artwork {

@@ -53,7 +53,7 @@
     }
     
     function show_save_button() {
-      $('#save-design').show();
+      $('#save-design').fadeIn('slow');
       $('#save-button').html('save your look');
       console.log('show save');
       
@@ -330,7 +330,15 @@
       $('#edit-button').click( function(){
         $('#editor').slideDown('slow');
         drift = false;
-     
+        
+        $('.active-tab').removeClass('active-tab');
+        $('#toggle-front').addClass('active-tab');
+        $("#rotate-slider").slider('value', 180);
+        front.rotation.y = 0;
+        back.rotation.y = 0;
+        
+        $('#front-texture').css('z-index', 5);
+        $('#back-texture').css('z-index', 4);
       })
       
       $('#toggle-front').click( function(){
@@ -541,7 +549,7 @@
     </div>
   </div>
   
-  <div id="save-design">
+  <div id="save-design" style="display: none;">
   <%= form_for Design.new, :remote => true, :id => 'design-save' do |f| %>
     <%= f.hidden_field :texture_id, :id => 'design-texture' %>
     <%= f.hidden_field :form_id, :id => 'design-form' %>

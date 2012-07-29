@@ -279,6 +279,11 @@ function init3DBuild(obj1, obj2, img){
 		
 	}
 	
+	container.onmouseup = function() {
+		var rot = ((front.rotation.y+Math.PI)/(Math.PI*2)) *360;
+		$("#rotate-slider").slider('value', rot);
+	}
+	
 	container.onmouseover = function(event) {
 		mouseIsOver = true;
 	}
