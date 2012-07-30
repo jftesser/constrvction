@@ -72,7 +72,8 @@ $blue: rgb(0,0,200);
 
 .triangle-box {
   position: absolute;
-  left: 200px;
+  //left: 200px;
+  left: 15px;
   margin-top: 10px;
   z-index: 2;
   h3 {
@@ -86,6 +87,14 @@ $blue: rgb(0,0,200);
     text-align: center;
   }
 }
+a:hover .triangle-black {
+  @include triangle-down(100px, 145px, $bright-red);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: inline-block;
+}
+
 .triangle-black {
   @include triangle-down(100px, 145px, black);
   position: absolute;
@@ -231,6 +240,7 @@ $blue: rgb(0,0,200);
 #available-designs{
   float: left;
   margin-left:25px;
+  position: relative;
 }
 #recent-design {
 

@@ -1,10 +1,15 @@
-
-  <div class="grid middle">
+<script>
+$(function() {
+  $('.grid-design-group').first().css('margin-left', '242px');
+});
+</script>
+  
+  <div class="grid middle available-designs">
     <% if current_user %>  
-      <h2>My Constrvcts</h2>
+      <div class="triangle-box"><span class="triangle-black"></span><h3 style="font-size: 17px;">My Constrvcts</h3></div>
 
     <% else %>
-      <h2>Constrvcted by <%= @user.username %> </h2>
+      <div class="triangle-box"><span class="triangle-black"></span><h3 style="font-size: 17px;"><%= @user.username %>'s Constrvcts</h3></div>
     <% end %>
     
     
@@ -37,8 +42,8 @@
   <% end %>
   </div>
   
-  <div class="grid middle">
-    <h2>My Artwork</h2>
+  <div class="grid middle" style="margin-top: 50px;">
+    <h2 style="padding: 5px; background: url('/assets/diagonal-light.png');" >My Artwork</h2>
   <% @user.textures.each do |texture| %>
   <div class='grid-design-group' style="width:100px;height:100px;">
     <div class='design-unit'>
