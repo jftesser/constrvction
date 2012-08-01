@@ -1,6 +1,6 @@
 
   <div class="grid middle">
-    <% if current_user %>  
+    <% if current_user.id = @user.id %>  
       <h2>My Constrvcts</h2>
 
     <% else %>
@@ -19,7 +19,7 @@
           </div>
         </div>
       
-      <% if current_user %>   
+      <% if current_user.id = @user.id %>   
         <%= link_to 'x', design, :method => :delete, :class => 'close-button', :data => { :confirm => 'Are you sure you want to delete this design?' } %>
       <% end %>
 
@@ -38,7 +38,11 @@
   </div>
   
   <div class="grid middle">
-    <h2>My Artwork</h2>
+    <% if current_user.id = @user.id %> 
+    <h2>My Uploads</h2>
+    <% else %>
+    <h2><%= @user.username %>'s Uploads</h2>
+    <% end %>
   <% @user.textures.each do |texture| %>
   <div class='grid-design-group' style="width:100px;height:100px;">
     <div class='design-unit'>
