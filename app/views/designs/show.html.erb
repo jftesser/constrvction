@@ -19,7 +19,9 @@
     <% end %>
     <%= image_tag @design.form.icon.url(:icon100), :width => 100 %>
   </p>
+  <!--
   <h4><span class="grey">artwork by </span> <%= link_to @design.texture.user.username, user_path(@design.texture.user) %></h4>
+  -->
   <h4><span class="grey">style: </span> <%= @design.form.name %></h4>
 
   <% if current_admin %>  
@@ -151,6 +153,7 @@
     	}
     }
     
+    drift = true;
     
   </script>
 <% end %>
