@@ -37,16 +37,19 @@ class TextureUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:
   
   version :v512 do
+    process :convert => 'jpg'
     process :orientation
       
       #process :resize_to_fit => [512, nil]
   end
   
   version :v1024 do
+    process :convert => 'jpg'
     process :resize_to_fill => [1024, 1024]
   end
   
   version :thumb do
+    process :convert => 'jpg'
     process :resize_to_fill => [512, 512]
     process :resize_to_fit => [100, 100]
   end
