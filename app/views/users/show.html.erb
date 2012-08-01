@@ -5,7 +5,7 @@ $(function() {
 </script>
   
   <div class="grid middle available-designs">
-    <% if current_user %>  
+    <% if current_user.id == @user.id  %>  
       <div class="triangle-box"><span class="triangle-black"></span><h3 style="font-size: 17px;">My Constrvcts</h3></div>
 
     <% else %>
@@ -24,10 +24,10 @@ $(function() {
           </div>
         </div>
       
-      <% if current_user %>   
-      <!--
+      <% if current_user.id == @user.id  %>    
+      
         <%= link_to 'x', design, :method => :delete, :class => 'close-button', :data => { :confirm => 'Are you sure you want to delete this design?' } %>
-        -->
+        
       <% end %>
 
       <% if current_admin %>  
@@ -45,7 +45,8 @@ $(function() {
   </div>
   
   <div class="grid middle" style="margin-top: 50px;">
-    <h2 style="padding: 5px; background: url('/assets/diagonal-light.png');" >My Artwork</h2>
+    <h2 style="padding: 5px; background: url('/assets/diagonal-light.png');" >
+      <%= @user.username %>'s uploads</h2>
   <% @user.textures.each do |texture| %>
   <div class='grid-design-group' style="width:100px;height:100px;">
     <div class='design-unit'>
