@@ -4,7 +4,7 @@ $(function() {
 });
 </script>
   
-  <div class="grid middle available-designs">
+  <div class="grid middle available-designs" style="margin-top: 20px;">
     <% if current_user.id == @user.id  %>  
       <div class="triangle-box"><span class="triangle-black"></span><h3 style="font-size: 17px;">My Constrvcts</h3></div>
 
@@ -44,9 +44,10 @@ $(function() {
   <% end %>
   </div>
   
+  <% if current_user.id == @user.id  %> 
   <div class="grid middle" style="margin-top: 50px;">
     <h2 style="padding: 5px; background: url('/assets/diagonal-light.png');" >
-      <%= @user.username %>'s uploads</h2>
+      My Uploads</h2>
   <% @user.textures.each do |texture| %>
   <div class='grid-design-group' style="width:100px;height:100px;">
     <div class='design-unit'>
@@ -63,6 +64,7 @@ $(function() {
   <% end %>
   
   </div>
+  <% end %>
   
   <% if current_admin %>
   <p>
