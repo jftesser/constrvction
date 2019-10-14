@@ -7,7 +7,7 @@ gem 'rails', '3.2.6'
 
 gem "therubyracer", :require => 'v8'
 
-gem "paperclip", "~> 2.7"
+gem "paperclip", "~> 4.3"
 gem 'aws-sdk'
 
 gem 'mysql2'
